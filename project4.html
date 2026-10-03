@@ -15,7 +15,7 @@
     rel="stylesheet">
 </head>
 
-<body>
+<body class="project-page">
   <div class="background-svg">
     <header class="navbar">
       <a href="index.html" class="logo-box">
@@ -34,16 +34,14 @@
 
     </header>
 
-    <section class="project-album buttons">
-      <div class="btn animated-gradient-border"
-        onclick="window.open('https://www.figma.com/proto/5Gubgr7AjZsTgj7gGcz0Ay/TDP?page-id=0%3A1&node-id=2-236&starting-point-node-id=2%3A236&t=FkCTdMCgYP6RHtBe-1', '_blank')">
-        Website
+    <section class="project-hero compact">
+      <div class="project-hero-text">
+        <span class="project-eyebrow">Project 04</span>
+        <h1 class="project-title gradient-text">Web Design - Daily Paper</h1>
+        <span class="project-status">Page still in progress</span>
+      <div class="buttons project-actions"><a href="#prototype" class="btn animated-gradient-border">Try the prototype</a></div>
       </div>
-      <div id="works" class="image-project2">
-        <img src="assets/daily-paper.png" alt="Project preview" class="project-image" />
-      </div>
-      <h2 class="title-front gradient-text">Project:</h2>
-      <h1 class="naam gradient-text project1-override">Web Design - Daily Paper (Website still in progress)</h1>
+      <figure class="project-hero-media cover-small"><img src="assets/daily-paper.png" alt="Preview of the Daily Paper website"></figure>
     </section>
 
     <section class="project-description">
@@ -63,27 +61,38 @@
     </div>
   </section>  
 
+    <!-- INTERACTIVE PROTOTYPE -->
     <section class="projects">
-    <h2 class="title gradient-text">Experience |</h2>
+      <h2 id="prototype" class="title gradient-text">Try the prototype |</h2>
+    </section>
+    <section class="proto">
+      <div class="proto-frame" style="--proto-w: 16; --proto-h: 9" data-title="Daily Paper website prototype"
+        data-embed="https://embed.figma.com/proto/5Gubgr7AjZsTgj7gGcz0Ay/TDP?node-id=2-236&starting-point-node-id=2%3A236&scaling=scale-down-width&embed-host=share">
+        <div class="proto-poster" style="background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.65)), url('assets/daily-paper.png')">
+          <button type="button" class="proto-launch btn animated-gradient-border">Launch prototype</button>
+        </div>
+      </div>
+      <p class="proto-note">Click through the website right here, or
+        <a href="https://www.figma.com/proto/5Gubgr7AjZsTgj7gGcz0Ay/TDP?node-id=2-236&starting-point-node-id=2%3A236" target="_blank" rel="noopener">open it in Figma &#8599;</a>.</p>
+    </section>
+
+    <section class="projects">
+    <h2 class="title gradient-text">Main Subjects learned |</h2>
   </section>
-  <div class="exp-grid">
+  <div class="exp-grid single">
     <div class="exp-panel skills-panel">
       <h3 class="gradient-text">Skills &amp; technology</h3>
-      <div class="skill"><div class="skill-top">HTML, CSS, Java <em>4 years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
       <div class="skill"><div class="skill-top">Figma <em>3+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
       <div class="skill"><div class="skill-top">Adobe <em>2 years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
-      <div class="skill"><div class="skill-top">Spline <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-      <div class="skill"><div class="skill-top">TouchDesigner <em>1+ year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.55"></div></div></div>
-    </div>
-    <div class="exp-panel">
-      <h3 class="gradient-text">Background &amp; languages</h3>
-      <div class="info-row"><b>Marketing &amp; communication</b><span>MBO 4</span></div>
-      <div class="info-row"><b>Dutch</b><span>Native</span></div>
-      <div class="info-row"><b>English</b><span>Professional</span></div>
-      <div class="info-row"><b>German</b><span>Professional</span></div>
     </div>
   </div>
 
+
+    <nav class="project-nav" aria-label="Project navigation">
+      <a class="pn-link prev" href="project3.html"><small>&larr; Previous</small><span>Web Design - Skills21</span></a>
+      <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
+      <a class="pn-link next" href="project5.html"><small>Next &rarr;</small><span>TDA Fase A - Touch Designer</span></a>
+    </nav>
 
     <footer class="footer">
       <div id="connecting" class="projects footer-collumn">

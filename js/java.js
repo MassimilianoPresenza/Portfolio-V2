@@ -75,3 +75,29 @@ const panelObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.25 });
 
 document.querySelectorAll(".exp-panel").forEach((panel) => panelObserver.observe(panel));
+
+
+/* ===== 5. FIGMA PROTOTYPE EMBEDS: load the iframe only after a click ===== */
+document.querySelectorAll("[data-embed]").forEach((frame) => {
+  const launch = frame.querySelector(".proto-launch");
+  if (!launch) return;
+  launch.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = frame.dataset.embed;
+    iframe.title = frame.dataset.title || "Interactive prototype";
+    iframe.allowFullscreen = true;
+    iframe.setAttribute("allow", "fullscreen");
+    frame.appendChild(iframe);
+    frame.classList.add("is-live");
+
+    const fs = document.createElement("button");
+    fs.type = "button";
+    fs.className = "proto-fs btn animated-gradient-border";
+    fs.textContent = "Fullscreen";
+    fs.addEventListener("click", () => {
+      const req = frame.requestFullscreen || frame.webkitRequestFullscreen;
+      if (req) req.call(frame);
+    });
+    frame.insertAdjacentElement("afterend", fs);
+  });
+});
