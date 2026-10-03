@@ -28,7 +28,7 @@
       <a href="about.html">About me</a>
     </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
-      <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon">
+      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon">
     </div>
   </header>
 
@@ -47,7 +47,7 @@
     </div>
 
     <div class="image-container">
-      <img src="assets/Me.png" alt="profilefoto" class="profile-image">
+      <img src="assets/portrait-home.png" alt="profilefoto" class="profile-image">
     </div>
   </section>
 
@@ -57,74 +57,86 @@
     <a href="all-projects.html" class="view-more">View More</a>
   </section>
 
+<!-- Every project card is listed here. The script below shows 3 random ones on each
+       load (never the same 3 twice in a row). Without JavaScript the 3 cards that are not
+       "hidden" are shown. To add a project: copy a card. Status class: is-done or is-progress. -->
 <section class="column-container">
-  <div class="column-grid">
+  <div class="column-grid" id="recent-grid">
 
         <a href="project1.html" class="column-item">
-          <img src="assets/album.png" alt="Gen ART Album">
+          <span class="card-status is-done">Finished</span>
+          <img src="assets/project1-gen-art-album-cover.png" alt="Gen ART Album">
           <div class="overlay-title gradient-text"><strong>Gen ART - Album</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
         </a>
-<!-- 
-        <a href="project2.html" class="column-item">
-          <img src="assets/app-background.png" alt="App Design Background">
-          <div class="overlay-title gradient-text"><strong>App Design - Background</strong></div>
+
+        <a href="project2.html" class="column-item" hidden>
+          <span class="card-status is-done">Finished</span>
+          <img src="assets/project2-nhm-carbon-era-background.png" alt="App Design NHM">
+          <div class="overlay-title gradient-text"><strong>App - Natural History Museum</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
         </a>
 
-        <a href="project3.html" class="column-item">
-          <img src="assets/skills21.png" alt="Skills21 website">
+        <a href="project3.html" class="column-item" hidden>
+          <span class="card-status is-progress">In progress</span>
+          <img src="assets/project3-skills21-website.png" alt="Skills21 website">
           <div class="overlay-title gradient-text"><strong>Web Design - Skills21</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
-        </a> -->
+        </a>
 
         <a href="project4.html" class="column-item">
-          <img src="assets/daily-paper.png" alt="Daily Paper">
+          <span class="card-status is-progress">In progress</span>
+          <img src="assets/project4-daily-paper-website.png" alt="Daily Paper">
           <div class="overlay-title gradient-text"><strong>Web Design - Daily Paper</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
         </a>
 
-        <!-- <a href="project5.html" class="column-item">
-          <img src="assets/gen-art-2.png" alt="TDA Fase A">
+        <a href="project5.html" class="column-item" hidden>
+          <span class="card-status is-done">Finished</span>
+          <img src="assets/project5-fase-a-cover.png" alt="TDA Fase A">
           <div class="overlay-title gradient-text"><strong>TDA Fase A - Touch Designer</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
-        </a> -->
+        </a>
 
-        <!-- FIXED: this one linked to project5.html, it now goes to project6.html -->
         <a href="project6.html" class="column-item">
-          <img src="assets/TDA-Fase-B.jpeg" alt="TDA Fase B">
+          <span class="card-status is-done">Finished</span>
+          <img src="assets/project6-fase-b-cover.jpg" alt="TDA Fase B">
           <div class="overlay-title gradient-text"><strong>TDA Fase B - Touch Designer</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
         </a>
-<!-- 
-        <a href="Spline.html" class="column-item">
-          <img src="assets/spline.png" alt="Spline">
+
+        <a href="Spline.html" class="column-item" hidden>
+          <span class="card-status is-done">Finished</span>
+          <img src="assets/project7-spline-cover.png" alt="Spline">
           <div class="overlay-title gradient-text"><strong>Spline Projects</strong></div>
           <div class="overlay-top"></div>
           <div class="overlay-glow"></div>
         </a>
-
-        <a href="Unreal.html" class="column-item">
-          <img src="assets/unreal.jpg" alt="Unreal Engine">
-          <div class="overlay-title gradient-text"><strong>Unreal Engine?</strong></div>
-          <div class="overlay-top"></div>
-          <div class="overlay-glow"></div>
-        </a>
-
-        <a href="VR.html" class="column-item">
-          <img src="assets/VR.jpg" alt="VR">
-          <div class="overlay-title gradient-text"><strong>Immersive Storytelling - VR</strong></div>
-          <div class="overlay-top"></div>
-          <div class="overlay-glow"></div>
-        </a> -->
-    </div>
-  </section>
+  </div>
+</section>
+<script>
+  /* Recent Projects: pick 3 random cards, different from the previous load */
+  (() => {
+    const cards = [...document.querySelectorAll("#recent-grid .column-item")];
+    if (cards.length <= 3) return;
+    const pick = () => cards.slice().sort(() => Math.random() - 0.5).slice(0, 3);
+    let last = "";
+    try { last = sessionStorage.getItem("recentSet") || ""; } catch (e) {}
+    const key = (set) => set.map((c) => c.getAttribute("href")).sort().join("|");
+    let chosen = pick();
+    for (let i = 0; i < 10 && key(chosen) === last; i++) chosen = pick();
+    try { sessionStorage.setItem("recentSet", key(chosen)); } catch (e) {}
+    const grid = document.getElementById("recent-grid");
+    cards.forEach((c) => (c.hidden = !chosen.includes(c)));
+    chosen.forEach((c) => grid.appendChild(c));   /* random order too */
+  })();
+</script>
 
  <!-- EXPERIENCE -->
   <section class="experience-section">
@@ -187,9 +199,9 @@
       <h3 class="touch">Get in touch for opportunities or just to say hi!</h3>
     </div>
     <div class="wrapper">
-      <a class="boxes" href="https://www.linkedin.com/in/massimilianopresenza/"><img src="assets/LinkedIn.svg" alt="LinkedIn"></a>
-      <a class="boxes" href="https://www.instagram.com/massimilianopresenza/"><img src="assets/Instagram.svg" alt="Instagram"></a>
-      <a class="boxes" href="mailto:MassimilianoPresenza@gmail.com"><img src="assets/Mail.svg" alt="Email"></a>
+      <a class="boxes" href="https://www.linkedin.com/in/massimilianopresenza/"><img src="assets/icon-linkedin.svg" alt="LinkedIn"></a>
+      <a class="boxes" href="https://www.instagram.com/massimilianopresenza/"><img src="assets/icon-instagram.svg" alt="Instagram"></a>
+      <a class="boxes" href="mailto:MassimilianoPresenza@gmail.com"><img src="assets/icon-mail.svg" alt="Email"></a>
     </div>
   </footer>
 

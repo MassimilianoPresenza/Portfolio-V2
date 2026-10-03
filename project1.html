@@ -16,7 +16,7 @@
 </head>
 
 <body class="project-page">
-  <div class="backgroundp1">
+  <div class="background-svg">
     <header class="navbar">
     <a href="index.html" class="logo-box">
       <img src="assets/logo.svg" alt="logo" class="logo-img" />
@@ -29,33 +29,45 @@
         <a href="about.html">About me</a>
       </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
-      <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon" />
+      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
     </div>
   </header>
 
 <section class="project-hero compact">
-    <div class="project-hero-text">
-      <span class="project-eyebrow">Project 01</span>
-      <h1 class="project-title gradient-text">GEN ART</h1>
-      <span class="project-status is-done">Page Finished</span>
-      <div class="buttons project-actions"><a href="#" class="btn animated-gradient-border" data-title="ALBUM">ALBUM</a></div>
-    </div>
-    <figure class="project-hero-media cover-small"><img src="assets/album.png" alt="Album cover: black hole artwork"></figure>
-  </section>
-<article class="project-article">
-    <h2 class="article-label">About the project</h2>
-    <p class="lead">During this project, I found it really interesting that we were given a lot of creative freedom: we could create almost anything we wanted, as long as it was discussed with the artist. In the first week, we met the artist we would be working with.</p>
-    <p>The project lasted ten weeks, and we started without any prior knowledge about the artist or the technology involved. We learned to work with Processing (using P5.js), a programming language similar to JavaScript but with added libraries for features like frequency and BPM detection. This allowed us to create scenes that reacted to music or could be controlled using Arduino.</p>
-    <p>Even though we had ten weeks, it went by really fast and the deadlines quickly started closing in. I wanted to create something inspired by black holes, based on my favorite movie Interstellar. I love space and black holes, so that became the main source of my inspiration.</p>
-    <p>Throughout the project, I learned a lot, not only by myself but also by working with friends. We helped each other, which made the process less stressful.</p>
-    <p>At the end of the ten weeks, we had a live performance together with the artist, where we presented and showcased the visual scenes we had created. We also had to explain what we made, how it worked, and how the visuals connected to the music in real-time.</p>
-    <p>While working on the coding part, we were also required to conduct research. We did desk research on existing generative art projects, which we could remix or take inspiration from. This taught us how to back up our creative ideas with proper research, combining creativity with structured design thinking.</p>
-    <p>The project was part of the Live Visuals for Live Music module, where we acted as VJs, designing generative visuals that reacted to live music performances. Our work was meant to create an immersive audiovisual experience for the audience. Using real-time systems and interactive designs, we explored how technology, sound, and visuals come together to create emotion and energy during live events.</p>
-    <p class="closing">Overall, it was a really fun project, and definitely one of my favorite experiences so far!</p>
-  </article>  
-      <!-- INTERACTIVE DEMO -->
+      <div class="project-hero-text">
+        <span class="project-eyebrow">Project 01</span>
+        <h1 class="project-title gradient-text">Gen ART - Album</h1>
+        <span class="project-status is-done">Page Finished</span>
+        <div class="buttons project-actions"><a href="#demo" class="btn animated-gradient-border">Try the demo</a></div>
+      </div>
+      <figure class="project-hero-media cover-small"><img src="assets/project1-gen-art-album-cover.png" alt="Album cover: black hole artwork"></figure>
+    </section>
+
+    <section class="project-description">
+      <div class="exp-grid single">
+        <div class="exp-panel">
+          <h3 class="gradient-text">About the project</h3>
+          <p>During this project, I found it really interesting that we were given a lot of creative freedom: we could create almost anything we wanted, as long as it was discussed with the artist. In the first week, we met the artist we would be working with.</p>
+          <p>The project lasted ten weeks, and we started without any prior knowledge about the artist or the technology involved. We learned to work with Processing (using P5.js), a programming language similar to JavaScript but with added libraries for features like frequency and BPM detection. This allowed us to create scenes that reacted to music or could be controlled using Arduino.</p>
+          <p>The project was part of the Live Visuals for Live Music module, where we acted as VJs, designing generative visuals that reacted to live music performances. Our work was meant to create an immersive audiovisual experience for the audience. Using real-time systems and interactive designs, we explored how technology, sound, and visuals come together to create emotion and energy during live events.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">The idea behind it</h3>
+          <p>Even though we had ten weeks, it went by really fast and the deadlines quickly started closing in. I wanted to create something inspired by black holes, based on my favorite movie Interstellar. I love space and black holes, so that became the main source of my inspiration.</p>
+          <p>Throughout the project, I learned a lot, not only by myself but also by working with friends. We helped each other, which made the process less stressful.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">Research &amp; live performance</h3>
+          <p>While working on the coding part, we were also required to conduct research. We did desk research on existing generative art projects, which we could remix or take inspiration from. This taught us how to back up our creative ideas with proper research, combining creativity with structured design thinking.</p>
+          <p>At the end of the ten weeks, we had a live performance together with the artist, where we presented and showcased the visual scenes we had created. We also had to explain what we made, how it worked, and how the visuals connected to the music in real-time.</p>
+          <p>Overall, it was a really fun project, and definitely one of my favorite experiences so far!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DEMO -->
   <section class="projects">
-    <h2 class="title gradient-text">Try it yourself |</h2>
+    <h2 id="demo" class="title gradient-text">Try it yourself |</h2>
   </section>
   <section class="demo" id="gen-demo">
     <div class="demo-stage">
@@ -136,17 +148,17 @@
       <div class="wrapper">
         <div class="boxes">
           <a href="https://www.linkedin.com/in/massimilianopresenza/">
-            <img src="assets/LinkedIn.svg" alt="icon" />
+            <img src="assets/icon-linkedin.svg" alt="icon" />
           </a>
         </div>
         <div class="boxes">
           <a href="https://www.instagram.com/massimilianopresenza/">
-            <img src="assets/Instagram.svg" alt="icon" />
+            <img src="assets/icon-instagram.svg" alt="icon" />
           </a>
         </div>
         <div class="boxes">
           <a href="mailto:MassimilianoPresenza@gmail.com">
-            <img src="assets/Mail.svg" alt="icon" />
+            <img src="assets/icon-mail.svg" alt="icon" />
           </a>
         </div>
       </div>

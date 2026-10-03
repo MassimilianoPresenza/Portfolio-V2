@@ -2,15 +2,15 @@
    (Wormhole_loop.pde + Sterren.pde + Balletje.pde).
    Scene 0 = Stars (+ black-hole GIF), Scene 1 = Wormhole, Scene 2 = Rings.
    The three knobs replace the Arduino potentiometers, the beat is simulated
-   (or follows assets/abyss.mp3 when "Play music" is on).
+   (or follows assets/project1-gen-art-abyss.mp3 when "Play music" is on).
    p5.js is only loaded when the visitor presses "Launch". */
 (function () {
   const root = document.getElementById("gen-demo");
   if (!root) return;
 
   const P5_URL = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js";
-  const GIF_SRC = "assets/Bhole1.gif";
-  const AUDIO_SRC = "assets/abyss.mp3";
+  const GIF_SRC = "assets/project1-gen-art-black-hole.gif";
+  const AUDIO_SRC = "assets/project1-gen-art-abyss.mp3";
   const stage = root.querySelector(".demo-stage");
   const launchBtn = root.querySelector(".demo-launch");
   const status = root.querySelector(".demo-status");
@@ -162,7 +162,7 @@
     root.classList.add("is-live");
     gif = document.createElement("img");
     gif.className = "demo__gif"; gif.alt = "";
-    gif.onerror = () => msg("Could not find " + GIF_SRC + ". Put Bhole1.gif in the assets folder.");
+    gif.onerror = () => msg("Could not find " + GIF_SRC + ". Put project1-gen-art-black-hole.gif in the assets folder.");
     gif.src = GIF_SRC;
     stage.insertBefore(gif, stage.firstChild);
     p5inst = new window.p5(sketch);
@@ -230,7 +230,7 @@
       if (!audio) {
         audio = new Audio(AUDIO_SRC); audio.loop = true;
         audio.addEventListener("error", () => {
-          msg("Could not load " + AUDIO_SRC + ". Put abyss.mp3 in the assets folder.");
+          msg("Could not load " + AUDIO_SRC + ". Put project1-gen-art-abyss.mp3 in the assets folder.");
           musicEl.checked = state.music = live = false;
         });
       }
@@ -247,7 +247,7 @@
       await actx.resume(); live = true;
     } catch (e) {
       console.warn("Gen ART demo audio:", e);
-      if (!msgEl.textContent) msg("Could not play the music. Check that assets/abyss.mp3 exists.");
+      if (!msgEl.textContent) msg("Could not play the music. Check that assets/project1-gen-art-abyss.mp3 exists.");
       musicEl.checked = state.music = live = false;
     }
   });

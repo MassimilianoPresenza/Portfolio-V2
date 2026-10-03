@@ -1,3 +1,27 @@
+/* ===== 0. LOADING SCREEN: only shown when the page is slow =====
+   The screen is pure CSS (see "LOADING SCREEN" in style.css). If the page is
+   still loading after SHOW_AFTER ms we show it, and once it has appeared it
+   stays at least MIN_VISIBLE ms so it never just flashes. Fast pages never see it. */
+(() => {
+  const root = document.documentElement;
+  const SHOW_AFTER = 400, MIN_VISIBLE = 700;
+  let shownAt = 0, done = false;
+  const timer = setTimeout(() => {
+    if (done) return;
+    shownAt = performance.now();
+    root.classList.add("loader-show");
+  }, SHOW_AFTER);
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    const wait = shownAt ? Math.max(0, shownAt + MIN_VISIBLE - performance.now()) : 0;
+    setTimeout(() => root.classList.add("loaded"), wait);
+  };
+  document.readyState === "complete" ? finish() : window.addEventListener("load", finish);
+  setTimeout(finish, 8000);   /* failsafe: never block a page for more than 8s */
+})();
+
 const icon = document.getElementById("theme-icon");
 const logo = document.querySelector(".logo-img");
 let isDark = true;
@@ -8,16 +32,16 @@ function toggleTheme() {
   isDark = !isDark;
 
   // Update the icons based on the theme mode
-  icon.src = isDark ? "assets/light_mode_sun.svg" : "assets/dark_mode_moon.svg";
+  icon.src = isDark ? "assets/icon-theme-sun.svg" : "assets/icon-theme-moon.svg";
   logo.src = isDark ? "assets/logo.svg" : "assets/logo-dark.svg";
 }
 
 // Change the icon on hover
 icon.addEventListener("mouseover", () => {
   if (isDark) {
-    icon.src = "assets/sun_hover.svg"; // Set moon icon on hover (for light mode)
+    icon.src = "assets/icon-theme-sun-hover.svg"; // Set moon icon on hover (for light mode)
   } else {
-    icon.src = "assets/moon_hover.svg"; // Set sun icon on hover (for dark mode)
+    icon.src = "assets/icon-theme-moon-hover.svg"; // Set sun icon on hover (for dark mode)
   }
 });
 
@@ -60,7 +84,7 @@ if (popupOverlay) popupOverlay.addEventListener('click', e => {
 
 // Revert to the appropriate icon after hover, depending on current theme
 icon.addEventListener("mouseleave", () => {
-  icon.src = isDark ? "assets/light_mode_sun.svg" : "assets/dark_mode_moon.svg";
+  icon.src = isDark ? "assets/icon-theme-sun.svg" : "assets/icon-theme-moon.svg";
 });
 
 

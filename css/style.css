@@ -215,7 +215,7 @@ body::after {
   padding: 2rem;
   border-radius: 12px;
   color: var(--text);
-  background: rgba(0, 7, 2, 0.9) url("../assets/Background-popup.png") center / cover;
+  background: rgba(0, 7, 2, 0.9) url("../assets/popup-background.png") center / cover;
   box-shadow: 0 0 40px rgba(0, 122, 43, 0.4);
 }
 body.light-mode .popup-box { background: rgba(255, 255, 255, 0.9); }
@@ -657,7 +657,7 @@ spline-viewer { display: block; width: 100%; height: calc(100vh - 80px); }
 .demo-stage canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; touch-action: pan-y; cursor: crosshair; }
 .demo-poster {
   position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-  background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.6)), url("../assets/album.png") center / cover;
+  background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.6)), url("../assets/project1-gen-art-album-cover.png") center / cover;
 }
 .demo-poster .btn { border: 0; }
 .demo-status { font: 500 0.9rem var(--font-body); color: #fff; min-height: 1.2em; }
@@ -705,7 +705,7 @@ spline-viewer { display: block; width: 100%; height: calc(100vh - 80px); }
 .proto-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .proto-poster {
   position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.65)), url("../assets/App.png") center / cover;
+  background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.65)), url("../assets/project2-nhm-carbon-match-screen.png") center / cover;
 }
 .proto-poster .btn { border: 0; }
 .proto-frame.is-live .proto-poster { display: none; }
@@ -758,3 +758,77 @@ body.light-mode .role-word { color: #007a63; }
 .card-status.is-stopped  { --dot: #FF4D4D; }
 .card-status.is-progress::before { animation: statusPulse 1.8s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .card-status.is-progress::before { animation: none; } }
+
+/* =====================================================
+   PROJECT MEDIA (photos + video on project pages)
+   ===================================================== */
+.media-block { max-width: min(1200px, 92%); margin: 0 auto; padding-top: 40px; display: flex; flex-direction: column; gap: 24px; }
+.media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+.media-item { display: flex; flex-direction: column; margin: 0; overflow: hidden; border-radius: 20px; border: 1px solid rgba(0, 238, 255, 0.3); background: color-mix(in srgb, var(--bg) 60%, transparent); box-shadow: 0 0 60px rgba(0, 238, 255, 0.12), 0 30px 60px rgba(0, 0, 0, 0.3); }
+.media-item img, .media-item video { display: block; width: 100%; flex: 1; min-height: 0; object-fit: cover; background: #000; }
+.media-video video { height: auto; aspect-ratio: 1280 / 526; object-fit: contain; flex: none; }
+.media-item figcaption { padding: 14px 20px; font: 400 0.9rem var(--font-body); color: var(--muted); border-top: 1px solid rgba(128, 128, 128, 0.25); }
+@media (max-width: 760px) { .media-grid { grid-template-columns: 1fr; } .media-item img { flex: none; } }
+/* portrait media (phone photos / vertical video) in project pages */
+.media-item.media-portrait { width: min(100%, 460px); margin: 0 auto; }
+.media-portrait img, .media-portrait video { flex: none; height: auto; max-height: 80vh; object-fit: contain; }
+
+/* =====================================================
+   LOADING SCREEN (only appears when a page is slow to load)
+   html::before = dark aurora backdrop, html::after = logo + name.
+   Hidden by default. js/java.js adds .loader-show if the page is still
+   loading after 0.4s, and .loaded once it is ready (fades it out).
+   ===================================================== */
+html::before, html::after {
+  position: fixed;
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+}
+html::before {
+  content: "";
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(0, 238, 255, 0.22), transparent 25%),
+    radial-gradient(circle at 85% 35%, rgba(32, 227, 42, 0.16), transparent 25%),
+    radial-gradient(circle at 50% 95%, rgba(46, 235, 170, 0.20), transparent 40%),
+    #000;
+}
+html::after {
+  content: "massimiliano";
+  z-index: 9999;
+  top: 50%; left: 50%;
+  width: 240px; height: 170px;
+  margin: -85px 0 0 -120px;
+  padding-top: 122px;
+  text-align: center;
+  font: 500 0.95rem/1 var(--font-title);
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  text-transform: lowercase;
+  color: var(--c2);
+  background: url("../assets/logo-loader-1.svg") no-repeat center top / 104px 104px;
+}
+html.loader-show:not(.loaded)::before,
+html.loader-show:not(.loaded)::after {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+html.loader-show::after {
+  animation: loaderFrames 1s steps(1) infinite, loaderPulse 2s ease-in-out infinite;
+}
+/* the arc runs round the logo: 4 hand-made frames, played as stop-motion */
+@keyframes loaderFrames {
+  0%   { background-image: url("../assets/logo-loader-1.svg"); }
+  25%  { background-image: url("../assets/logo-loader-2.svg"); }
+  50%  { background-image: url("../assets/logo-loader-3.svg"); }
+  75%  { background-image: url("../assets/logo-loader-4.svg"); }
+}
+@keyframes loaderPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(46, 235, 170, 0.20)); }
+  50%      { filter: drop-shadow(0 0 22px rgba(46, 235, 170, 0.55)); }
+}
+@media (prefers-reduced-motion: reduce) { html.loader-show::after { animation: none; } }

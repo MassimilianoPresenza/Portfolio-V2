@@ -28,7 +28,7 @@
         <a href="about.html">About me</a>
       </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
-      <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon" />
+      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
     </div>
 
   </header>
@@ -37,30 +37,116 @@
       <div class="project-hero-text">
         <span class="project-eyebrow">Project 05</span>
         <h1 class="project-title gradient-text">TDA Fase A - Touch Designer</h1>
-        <span class="project-status is-progress">Page still in progress</span>
+        <span class="project-status is-done">Page Finished</span>
       </div>
-      <figure class="project-hero-media cover-small"><img src="assets/gen-art-2.png" alt="Preview of TDA Fase A"></figure>
+      <figure class="project-hero-media cover-small"><img src="assets/project5-fase-a-cover.png" alt="Preview of TDA Fase A"></figure>
     </section>
 
   <section class="project-description">
     <div class="exp-grid single">
       <div class="exp-panel">
         <h3 class="gradient-text">About the project</h3>
-        <p>
-      As part of the ongoing CMD project The Memory of the Mirror, I participated in the first development phase (Fase
-      A) of an interactive media art installation. This phase focused on experimenting with Visual input to explore how
-      viewers could directly influence digital artworks through movement & presence.
-    </p>
-    <p>
-      During Fase A, I tested early design and interaction concepts in a live setting during Museumnight Natural History Museum of Maastricht.
-       The goal was to see if the project was on track or required further fine-tuning.</p>
-    <p>
-    This testing moment helped validate the feasibility of the concept and gave valuable insights into real user
-    behavior. It also introduced me to rapid prototyping in a live art context, collaborative exhibition preparation,
-    and the creative potential of technology in interactive design.</p>
+        <p>Fase A is the first development phase of <em>The Memory of the Mirror</em>, an interactive media art installation made within the CMD programme. Visitors see their own shadow with a delay, as if their movements travel through time. This phase was about experimenting with visual input and finding out how people react to an artwork that responds to their movement and presence.</p>
+        <p>I tested the first version live during Museumnight at the Natural History Museum of Maastricht, to see whether the project was on track or needed fine-tuning. The test validated the concept, gave valuable insight into real visitor behaviour, and introduced me to rapid prototyping in a live art context and to collaborative exhibition preparation.</p>
+      </div>
+      <div class="exp-panel">
+        <h3 class="gradient-text">The idea behind it</h3>
+        <p>It started with a walk under a tree. My shadow seemed to follow me with a slight delay, like an echo of light and dark. A far stronger form of this exists as illusory palinopsia, a neurological effect in which people keep seeing images from the past, as if time builds up in the eye.</p>
+        <p>Space and time have fascinated me since I was young, thanks to my father, who took me into the world of stars and the universe. That interest already returned in <a href="project1.html">Gen ART</a>, where I worked with space and wormholes.</p>
+        <p>Many people feel that time passes faster now than it used to. My grandmother said it simply: time goes faster now than it used to. Whether that comes from technology, spacetime or something else, nobody knows, but the feeling is real. The installation gives visitors a small reset: a moment to realise that we live in the now and should not linger too long in the past.</p>
+        <p>Inspiration came from <a href="https://www.portals.org/portals" target="_blank" rel="noopener">Portals</a> and from the AAO review of <a href="https://www.aao.org/education/editors-choice/must-read-review-of-palinopsia" target="_blank" rel="noopener">illusory palinopsia</a>.</p>
       </div>
     </div>
   </section>
+
+  <section class="projects">
+    <h2 class="title gradient-text">Behind the scenes |</h2>
+  </section>
+  <section class="media-block">
+    <div class="media-grid">
+      <figure class="media-item">
+        <img src="assets/project5-fase-a-showing-visitors.png" alt="Showing the first version of the installation to visitors" loading="lazy">
+        <figcaption>Showing the first version to visitors at the live test.</figcaption>
+      </figure>
+      <figure class="media-item">
+        <img src="assets/project5-fase-a-prototype-output.png" alt="Prototype 1, version 1: blue silhouette output" loading="lazy">
+        <figcaption>Prototype 1: screen of live test.</figcaption>
+      </figure>
+    </div>
+
+  </section>
+
+  <section class="projects">
+    <h2 class="title gradient-text">How it works |</h2>
+  </section>
+  <div class="exp-grid">
+    <div class="exp-panel">
+      <h3 class="gradient-text">The interaction</h3>
+      <div class="info-row"><div><b>Motion detection</b><small>A Kinect measures depth and separates the visitor from the background, turning them into a silhouette.</small></div><span>Sensing</span></div>
+      <div class="info-row"><div><b>Delay</b><small>Movements are stored in a buffer and replayed after a set number of seconds.</small></div><span>Buffer</span></div>
+      <div class="info-row"><div><b>Time layers</b><small>5 seconds (white), 10 seconds (blue) and 30 seconds (red), so several versions of the visitor exist side by side.</small></div><span>3 layers</span></div>
+      <div class="info-row"><div><b>Projection</b><small>A projector shows the delayed silhouettes on a wall or reflective surface and the image slowly fades.</small></div><span>Fading</span></div>
+      <div class="info-row"><div><b>Dynamic effects</b><small>Colour and shape react to movement speed and to the number of visitors.</small></div><span>Reactive</span></div>
+      <div class="info-row"><div><b>Idle mode</b><small>When nobody is there, earlier recordings play back.</small></div><span>Recordings</span></div>
+    </div>
+    <div class="exp-panel">
+      <h3 class="gradient-text">Planned set-up</h3>
+      <div class="info-row"><b>Sensor</b><span>Kinect 360</span></div>
+      <div class="info-row"><b>Computer</b><span>Windows PC</span></div>
+      <div class="info-row"><b>Projector</b><span>Full HD</span></div>
+      <div class="info-row"><b>Surface</b><span>Wall or screen</span></div>
+      <div class="info-row"><b>Drivers</b><span>Kinect SDK 1.8</span></div>
+      <div class="info-row"><b>Tracking</b><span>Python + OpenCV</span></div>
+      <div class="info-row"><b>Visuals</b><span>Processing, TouchDesigner</span></div>
+    </div>
+  </div>
+
+  <section class="projects">
+    <h2 class="title gradient-text">Original plan |</h2>
+  </section>
+  <div class="exp-grid single">
+    <div class="exp-panel">
+      <h3 class="gradient-text">10-week planning</h3>
+      <div class="info-row"><div><b>Set-up</b><small>Connect the Kinect, test the basic software, set up the projector.</small></div><span>Weeks 1-2</span></div>
+      <div class="info-row"><div><b>Core effect</b><small>Implement the motion delay and silhouette detection.</small></div><span>Weeks 3-4</span></div>
+      <div class="info-row"><div><b>Polish</b><small>Add colour changes, fading effects and sound.</small></div><span>Weeks 5-6</span></div>
+      <div class="info-row"><div><b>Testing</b><small>Let an audience try it, then optimise and document.</small></div><span>Weeks 7-8</span></div>
+      <div class="info-row"><div><b>Expo</b><small>Exhibition and evaluation.</small></div><span>Weeks 9-10</span></div>
+    </div>
+  </div>
+
+  <section class="project-description">
+    <div class="exp-grid single">
+      <div class="exp-panel">
+        <h3 class="gradient-text">The first live test</h3>
+        <p>The plan was a Kinect 360 with Python and Processing, but I ran into hard limits. The Kinect v1 would not work on my laptop and Processing was not powerful enough for the visuals I had in mind. I switched to an Intel RealSense D435 camera and TouchDesigner, but the depth image still had too much noise and too little accuracy.</p>
+        <p>At the live test, the delayed shadow came across as a vague, unrecognisable blob. Children understood it right away and played with their delayed shadows, while most adults exchanged confused looks. Too much ambient light cancelled the effect, and visitors had little context for what to expect.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2 class="title gradient-text">At the live test |</h2>
+  </section>
+  <section class="media-block">
+    <figure class="media-item media-portrait">
+      <img src="assets/project5-fase-a-museumnight-setup.jpg" alt="The Fase A set-up at Museumnight: a TV showing blue silhouettes next to a laptop, with a child drawing at a table in front" loading="lazy">
+      <figcaption>The Fase A set-up at Museumnight in the Natural History Museum of Maastricht.</figcaption>
+    </figure>
+  </section>
+
+  <section class="projects">
+    <h2 class="title gradient-text">Lessons learned |</h2>
+  </section>
+  <div class="exp-grid single">
+    <div class="exp-panel">
+      <h3 class="gradient-text">Input for Fase B</h3>
+      <div class="info-row"><div><b>Hardware</b><small>The RealSense image was too noisy and inaccurate.</small></div><span>Kinect V2</span></div>
+      <div class="info-row"><div><b>Visual language</b><small>The blurry blob did not communicate the idea.</small></div><span>Clearer figures</span></div>
+      <div class="info-row"><div><b>Environment</b><small>Ambient light cancelled the effect.</small></div><span>Lighting tests</span></div>
+      <div class="info-row"><div><b>Context</b><small>Visitors did not know what to expect.</small></div><span>Subtle cues</span></div>
+    </div>
+  </div>
 
   <section class="projects">
     <h2 class="title gradient-text">Experience |</h2>
@@ -81,7 +167,6 @@
     </div>
   </div>
 
-
     <nav class="project-nav" aria-label="Project navigation">
       <a class="pn-link prev" href="project4.html"><small>&larr; Previous</small><span>Web Design - Daily Paper</span></a>
       <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
@@ -96,17 +181,17 @@
       <div class="wrapper">
         <div class="boxes">
           <a href="https://www.linkedin.com/in/massimilianopresenza/">
-            <img src="assets/LinkedIn.svg" alt="icon" />
+            <img src="assets/icon-linkedin.svg" alt="icon" />
           </a>
         </div>
         <div class="boxes">
           <a href="https://www.instagram.com/massimilianopresenza/">
-            <img src="assets/Instagram.svg" alt="icon" />
+            <img src="assets/icon-instagram.svg" alt="icon" />
           </a>
         </div>
         <div class="boxes">
           <a href="mailto:MassimilianoPresenza@gmail.com">
-            <img src="assets/Mail.svg" alt="icon" />
+            <img src="assets/icon-mail.svg" alt="icon" />
           </a>
         </div>
       </div>
