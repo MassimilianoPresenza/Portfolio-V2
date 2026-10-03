@@ -516,6 +516,27 @@ spline-viewer { display: block; width: 100%; height: calc(100vh - 80px); }
   border: 1px solid rgba(0, 238, 255, 0.35);
   font: 500 0.8rem var(--font-body); letter-spacing: 0.08em; color: var(--muted);
 }
+
+/* status indicator sphere */
+.project-status { display: inline-flex; align-items: center; gap: 10px; --dot: #20E32A; }
+.project-status::before {
+  content: "";
+  width: 12px; height: 12px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, var(--dot) 45%, color-mix(in srgb, var(--dot) 60%, #000) 100%);
+  box-shadow: 0 0 10px var(--dot);
+}
+.project-status.is-done     { --dot: #20E32A; }  /* green  */
+.project-status.is-progress { --dot: #FFC531; }  /* yellow */
+.project-status.is-stopped  { --dot: #FF4D4D; }  /* red    */
+
+/* gentle pulse only while in progress */
+.project-status.is-progress::before { animation: statusPulse 1.8s ease-in-out infinite; }
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 4px var(--dot); }
+  50%      { box-shadow: 0 0 14px var(--dot), 0 0 22px var(--dot); }
+}
+@media (prefers-reduced-motion: reduce) { .project-status.is-progress::before { animation: none; } }
+
 .project-actions { justify-content: flex-start; margin-top: 32px; }
 .project-hero-media {
   position: relative;
@@ -714,3 +735,26 @@ body.light-mode .role-word { color: #007a63; }
 .skill-filter button:hover { border-color: var(--c2); }
 .skill-filter button[aria-pressed="true"] { background: var(--gradient); border-color: transparent; color: #000; font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .role-word { transition: none; } }
+/* =====================================================
+   STATUS BADGE ON PROJECT CARDS (all-projects.html)
+   ===================================================== */
+.card-status {
+  --dot: #20E32A;
+  position: absolute; top: 12px; right: 12px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font: 500 0.72rem var(--font-body); letter-spacing: 0.06em; color: #fff;
+  pointer-events: none;
+}
+.card-status::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, var(--dot) 45%, color-mix(in srgb, var(--dot) 60%, #000) 100%);
+  box-shadow: 0 0 8px var(--dot);
+}
+.card-status.is-done     { --dot: #20E32A; }
+.card-status.is-progress { --dot: #FFC531; }
+.card-status.is-stopped  { --dot: #FF4D4D; }
+.card-status.is-progress::before { animation: statusPulse 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .card-status.is-progress::before { animation: none; } }
