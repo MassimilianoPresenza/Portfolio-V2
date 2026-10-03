@@ -15,7 +15,7 @@
     rel="stylesheet">
 </head>
 
-<body>
+<body class="project-page">
   <div class="backgroundp1">
     <header class="navbar">
     <a href="index.html" class="logo-box">
@@ -23,76 +23,113 @@
       <div class="logo-naam">massimiliano</div>
     </a>
     <nav class="nav-links">
-      <a href="index.html#works">Works</a>
-      <a href="index.html#experience">Experience</a>
-      <a href="#connecting">Get in Touch</a>
-      <a href="#">Community</a>
-    </nav>
+        <a href="all-projects.html">Works</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="#connecting">Get in Touch</a>
+        <a href="about.html">About me</a>
+      </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
       <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon" />
     </div>
   </header>
 
-<section class="project-album buttons">
-    <a href="#" class="btn animated-gradient-border" data-title="ALBUM">ALBUM</a>
-      <div class="popup-overlay" id="popup-overlay">
-        <div class="popup-box">
-          <h2 id="popup-title"></h2>
-          <div class="popup-content">
-        <img src="assets/album.png" alt="Album Project"/>
-          <button id="popup-close" class="btn animated-gradient-border">Close</button>
-          </div>
-        </div>
-      </div>
-    <div id="works" class="image-project1">
-      <img src="assets/album-lines.png" alt="profilefoto" class="profile-image" />
+<section class="project-hero compact">
+    <div class="project-hero-text">
+      <span class="project-eyebrow">Project 01</span>
+      <h1 class="project-title gradient-text">GEN ART</h1>
+      <span class="project-status">Page still in progress</span>
+      <div class="buttons project-actions"><a href="#" class="btn animated-gradient-border" data-title="ALBUM">ALBUM</a></div>
     </div>
-            <h2 class="title-front gradient-text">Project:</h2>
-      <h1 class="naam gradient-text project1-override">GEN ART (Website still in progress)</h1>
+    <figure class="project-hero-media cover-small"><img src="assets/album.png" alt="Album cover: black hole artwork"></figure>
   </section>
-<section class="project-description">
-  <p class="bio">
-       During this project, I found it really interesting that we were given a lot of creative freedom: we could create almost anything we wanted, as long as it was discussed with the artist. In the first week, we met the artist we would be working with.</p>
-<img src="assets/Scene1.png"/>
-      <p class="bio">
-       The project lasted ten weeks, and we started without any prior knowledge about the artist or the technology involved. We learned to work with Processing (using P5.js), a programming language similar to JavaScript but with added libraries for features like frequency and BPM detection. This allowed us to create scenes that reacted to music or could be controlled using Arduino.</p>
-      <img src="assets/Scene2.png"/>
-       <p class="bio">
-       Even though we had ten weeks, it went by really fast and the deadlines quickly started closing in. I wanted to create something inspired by black holes, based on my favorite movie Interstellar. I love space and black holes, so that became the main source of my inspiration.</p>
-      <img src="assets/Scene3.png"/>
-       <p class="bio">
-       Throughout the project, I learned a lot, not only by myself but also by working with friends. We helped each other, which made the process less stressful.</p>
-<p class="bio">At the end of the ten weeks, we had a live performance together with the artist, where we presented and showcased the visual scenes we had created. We also had to explain what we made, how it worked, and how the visuals connected to the music in real-time.</p>
-<p class="bio">While working on the coding part, we were also required to conduct research. We did desk research on existing generative art projects, which we could remix or take inspiration from. This taught us how to back up our creative ideas with proper research, combining creativity with structured design thinking.</p>
-<p class="bio">The project was part of the Live Visuals for Live Music module, where we acted as VJs, designing generative visuals that reacted to live music performances. Our work was meant to create an immersive audiovisual experience for the audience. Using real-time systems and interactive designs, we explored how technology, sound, and visuals come together to create emotion and energy during live events.</p>
-<p class="bio">Overall, it was a really fun project, and definitely one of my favorite experiences so far!</p></section>  
-    <section class="experience-section">
-      <div class="experience">
-        <h2 class="title gradient-text">Main Subjects learned  |</h2>
-        <span class="view-more">Below</span>
+<article class="project-article">
+    <h2 class="article-label">About the project</h2>
+    <p class="lead">During this project, I found it really interesting that we were given a lot of creative freedom: we could create almost anything we wanted, as long as it was discussed with the artist. In the first week, we met the artist we would be working with.</p>
+    <p>The project lasted ten weeks, and we started without any prior knowledge about the artist or the technology involved. We learned to work with Processing (using P5.js), a programming language similar to JavaScript but with added libraries for features like frequency and BPM detection. This allowed us to create scenes that reacted to music or could be controlled using Arduino.</p>
+    <p>Even though we had ten weeks, it went by really fast and the deadlines quickly started closing in. I wanted to create something inspired by black holes, based on my favorite movie Interstellar. I love space and black holes, so that became the main source of my inspiration.</p>
+    <p>Throughout the project, I learned a lot, not only by myself but also by working with friends. We helped each other, which made the process less stressful.</p>
+    <p>At the end of the ten weeks, we had a live performance together with the artist, where we presented and showcased the visual scenes we had created. We also had to explain what we made, how it worked, and how the visuals connected to the music in real-time.</p>
+    <p>While working on the coding part, we were also required to conduct research. We did desk research on existing generative art projects, which we could remix or take inspiration from. This taught us how to back up our creative ideas with proper research, combining creativity with structured design thinking.</p>
+    <p>The project was part of the Live Visuals for Live Music module, where we acted as VJs, designing generative visuals that reacted to live music performances. Our work was meant to create an immersive audiovisual experience for the audience. Using real-time systems and interactive designs, we explored how technology, sound, and visuals come together to create emotion and energy during live events.</p>
+    <p class="closing">Overall, it was a really fun project, and definitely one of my favorite experiences so far!</p>
+  </article>  
+      <!-- INTERACTIVE DEMO -->
+  <section class="projects">
+    <h2 class="title gradient-text">Try it yourself |</h2>
+  </section>
+  <section class="demo" id="gen-demo">
+    <div class="demo-stage">
+      <div class="demo-poster">
+        <button type="button" class="demo-launch btn animated-gradient-border">Launch interactive demo</button>
+        <span class="demo-status" role="status"></span>
+      </div>
+    </div>
+
+    <div class="demo-controls">
+      <div class="ctl-group">
+        <span class="ctl-label">Scene</span>
+        <div class="seg">
+          <button type="button" data-scene="stars" aria-pressed="true">Stars</button>
+          <button type="button" data-scene="wormhole" aria-pressed="false">Wormhole</button>
+          <button type="button" data-scene="rings" aria-pressed="false">Rings</button>
+        </div>
+      </div>
+      <div class="ctl-group">
+        <span class="ctl-label">Ink</span>
+        <div class="seg">
+          <button type="button" data-ink="white" aria-pressed="true">White</button>
+          <button type="button" data-ink="cyan" aria-pressed="false">Cyan</button>
+          <button type="button" data-ink="ember" aria-pressed="false">Ember</button>
+        </div>
       </div>
 
-        <div id="experience" class="experience-cards">
-        <div class="text-bubble animated-gradient-border">
-          <div class="text-title">Arduino</div>
-          <div class="text-subtitle">1 Year</div>
-        </div>
-        <div class="text-bubble animated-gradient-border">
-          <div class="text-title">P5.JS</div>
-          <div class="text-subtitle">1 Year</div>
-        </div>
-        <div class="text-bubble animated-gradient-border">
-          <div class="text-title">Desk research</div>
-          <div class="text-subtitle">Periode 1.3</div>
-        </div>
-        <div class="text-bubble animated-gradient-border">
-          <div class="text-title">Design research</div>
-          <div class="text-subtitle">2+ Years</div>
-        </div>
-        
-      </div>
+      <label class="ctl-range" for="d-k1"><span></span><output></output></label>
+      <input id="d-k1" data-knob="0" type="range" min="0" max="100" value="45">
+      <label class="ctl-range" for="d-k2"><span></span><output></output></label>
+      <input id="d-k2" data-knob="1" type="range" min="0" max="100" value="50">
+      <label class="ctl-range" for="d-k3"><span></span><output></output></label>
+      <input id="d-k3" data-knob="2" type="range" min="0" max="100" value="0">
 
-    </section>
+      <div class="ctl-beat">
+        <label class="ctl-toggle"><input id="d-beat" data-param="beat" type="checkbox" checked><span>Beat reaction</span></label>
+        <span class="beat-dot" aria-hidden="true"></span>
+      </div>
+      <label class="ctl-toggle"><input id="d-music" type="checkbox"><span>Play music (abyss)</span></label>
+      <p class="demo-msg" role="status"></p>
+      <label class="ctl-range" for="d-bpm"><span>Tempo (BPM)</span><output for="d-bpm"></output></label>
+      <input id="d-bpm" data-param="bpm" type="range" min="60" max="180" value="120">
+
+      <div class="demo-actions">
+        <button type="button" class="demo-btn" data-action="pause">Pause</button>
+        <button type="button" class="demo-btn" data-action="reset">Reset</button>
+        <button type="button" class="demo-btn" data-action="save">Save image</button>
+      </div>
+    </div>
+  </section>
+  <p class="demo-note">The three knobs work like the Arduino potentiometers in the live set-up and change meaning per scene. The beat is simulated from the tempo, or follows the track when music is on.</p>
+
+  <section class="projects">
+    <h2 class="title gradient-text">Main Subjects learned |</h2>
+  </section>
+  <div class="exp-grid">
+    <div class="exp-panel skills-panel">
+      <h3 class="gradient-text">Skills &amp; technology</h3>
+      <div class="skill"><div class="skill-top">p5.js <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+      <div class="skill"><div class="skill-top">Arduino <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+      <div class="skill"><div class="skill-top">Design research <em>2+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.7"></div></div></div>
+    </div>
+    <div class="exp-panel">
+      <h3 class="gradient-text">Background &amp; languages</h3>
+      <div class="info-row"><b>Desk research</b><span>Periode 1.3</span></div>
+    </div>
+  </div>
+
+
+      <nav class="project-nav" aria-label="Project navigation">
+    <a class="pn-link prev" href="index.html"><small>&larr; Back</small><span>Home page</span></a>
+    <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
+    <a class="pn-link next" href="project2.html"><small>Next &rarr;</small><span>App Design - NHM</span></a>
+  </nav>
 
     <footer class="footer">
       <div id="connecting" class="projects footer-collumn">
@@ -119,6 +156,7 @@
   </footer>
   </div>
   <script src="js/java.js" defer></script>
+  <script src="js/gen-art-demo.js" defer></script>
 </body>
 
 </html>
