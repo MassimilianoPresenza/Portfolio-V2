@@ -1,2 +1,2 @@
 # Portfolio-V2
-Newer/better Portfolio design?
+Better design Portfolio from my work on Zuyd University of applied Science
