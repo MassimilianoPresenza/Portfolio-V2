@@ -101,3 +101,42 @@ document.querySelectorAll("[data-embed]").forEach((frame) => {
     frame.insertAdjacentElement("afterend", fs);
   });
 });
+
+
+/* ===== 6. ABOUT: rotating role words (skipped for reduced motion) ===== */
+(() => {
+  const el = document.querySelector("[data-rotate]");
+  if (!el) return;
+  const words = el.dataset.rotate.split("|");
+  if (words.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let i = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    el.classList.add("is-out");
+    setTimeout(() => {
+      i = (i + 1) % words.length;
+      el.textContent = words[i];
+      el.classList.remove("is-out");
+    }, 350);
+  }, 2600);
+})();
+
+
+/* ===== 7. ABOUT: filter skills by category and replay the bars ===== */
+(() => {
+  const bar = document.querySelector(".skill-filter");
+  if (!bar) return;
+  const panel = bar.closest(".skills-panel");
+  const skills = panel.querySelectorAll(".skill[data-cat]");
+  bar.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const cat = btn.dataset.filter;
+    bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    skills.forEach((s) => { s.hidden = cat !== "all" && s.dataset.cat !== cat; });
+    const fills = panel.querySelectorAll(".skill:not([hidden]) .bar-fill");
+    fills.forEach((f) => { f.style.transition = "none"; f.style.transform = "scaleX(0)"; });
+    void panel.offsetWidth;                     /* force a reflow so the reset sticks */
+    fills.forEach((f) => { f.style.transition = ""; f.style.transform = ""; });
+  });
+})();

@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - MassimilianoPresenza.nl</title>
+  <meta name="description" content="Massimiliano Presenza, Communication &amp; Multimedia Design student at ZUYD in Maastricht. Interactive installations, app prototypes, generative visuals and 3D.">
+  <meta name="theme-color" content="#000000">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
@@ -23,7 +25,7 @@
       <a href="all-projects.html">Works</a>
       <a href="index.html#experience">Experience</a>
       <a href="#connecting">Get in Touch</a>
-      <a href="#">About me</a>
+      <a href="about.html" aria-current="page">About me</a>
     </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
       <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon">
@@ -35,6 +37,7 @@
     <div class="container">
       <h2 class="title-front gradient-text">Hi, I'm</h2>
       <h1 class="naam gradient-text">massimiliano</h1>
+      <p class="role">I make <span class="role-word" data-rotate="interactive installations|app prototypes|generative visuals|3D and VR experiences">interactive installations</span></p>
       <p class="bio">
         Communication &amp; Multimedia Design student at ZUYD in Maastricht, building on an MBO 4 background in marketing &amp; communication.<br>
         I combine audience and brand thinking with hands-on design and technical work, from Figma prototypes to generative visuals and 3D.
@@ -51,7 +54,7 @@
 
   <!-- PROFILE -->
   <section class="projects">
-    <h2 class="title gradient-text">Profile |</h2>
+    <h2 class="title gradient-text">Profile</h2>
   </section>
   <div class="exp-grid">
     <div class="exp-panel">
@@ -66,7 +69,7 @@
 
   <!-- JOURNEY -->
   <section class="projects">
-    <h2 class="title gradient-text">Journey |</h2>
+    <h2 class="title gradient-text">Journey</h2>
   </section>
   <div class="exp-grid">
     <div class="exp-panel">
@@ -76,28 +79,34 @@
     </div>
     <div class="exp-panel">
       <h3 class="gradient-text">Where I'm growing</h3>
-      <p>3D design, creative coding and UX/UI. I'm currently working with Visual Studio Code (CSS,JAVA, C#, HTML, Python), Spline, TouchDesigner, Unreal Engine, VR and Figma.</p>
+      <p>3D design, creative coding and UX/UI. I code in HTML, CSS, JavaScript, C# and Python, and I build in Spline, TouchDesigner, Unreal Engine, VR and Figma.</p>
     </div>
   </div>
 
  
   <!-- SKILLS -->
   <section class="projects">
-    <h2 class="title gradient-text">Skills |</h2>
+    <h2 class="title gradient-text">Skills</h2>
   </section>
   <div id="skills" class="exp-grid">
     <div class="exp-panel skills-panel">
       <h3 class="gradient-text">Tools &amp; technology</h3>
-      <div class="skill"><div class="skill-top">HTML, CSS, Java <em>4+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
-      <div class="skill"><div class="skill-top">Figma <em>3+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
-      <div class="skill"><div class="skill-top">Adobe <em>2 years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
-      <div class="skill"><div class="skill-top">Spline <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-      <div class="skill"><div class="skill-top">TouchDesigner <em>1+ year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.55"></div></div></div>
-      <div class="skill"><div class="skill-top">Unreal Engine <em>6 months</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.25"></div></div></div>
-      <div class="skill"><div class="skill-top">VR <em>6 months</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.25"></div></div></div>
-    <div class="skill"><div class="skill-top">p5.js <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-    <div class="skill"><div class="skill-top">Arduino <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-    <div class="skill"><div class="skill-top">Design research <em>2+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.7"></div></div></div>
+      <div class="skill-filter" role="group" aria-label="Filter skills">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="design" aria-pressed="false">Design</button>
+        <button type="button" data-filter="code" aria-pressed="false">Code</button>
+        <button type="button" data-filter="3d" aria-pressed="false">3D &amp; interactive</button>
+      </div>
+      <div class="skill" data-cat="code"><div class="skill-top">HTML, CSS, JavaScript <em>4+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
+      <div class="skill" data-cat="design"><div class="skill-top">Figma <em>3+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
+      <div class="skill" data-cat="design"><div class="skill-top">Adobe <em>2 years</em></div><div class="bar-track"><div class="bar-fill" style="--w:1"></div></div></div>
+      <div class="skill" data-cat="3d"><div class="skill-top">Spline <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+      <div class="skill" data-cat="3d"><div class="skill-top">TouchDesigner <em>1+ year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.55"></div></div></div>
+      <div class="skill" data-cat="3d"><div class="skill-top">Unreal Engine <em>6 months</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.25"></div></div></div>
+      <div class="skill" data-cat="3d"><div class="skill-top">VR <em>6 months</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.25"></div></div></div>
+    <div class="skill" data-cat="code"><div class="skill-top">p5.js <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+    <div class="skill" data-cat="code"><div class="skill-top">Arduino <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+    <div class="skill" data-cat="design"><div class="skill-top">Design research <em>2+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.7"></div></div></div>
 
     </div>
     <div class="exp-panel">
@@ -105,6 +114,20 @@
       <div class="info-row"><b>Dutch</b><span>Native</span></div>
       <div class="info-row"><b>English</b><span>Professional</span></div>
       <div class="info-row"><b>German</b><span>Professional</span></div>
+      <div class="info-row"><b>Italian</b><span>Basic</span></div>
+    </div>
+  </div>
+
+  <!-- SHOWN LIVE -->
+  <section class="projects">
+    <h2 class="title gradient-text">Shown live</h2>
+  </section>
+  <div class="exp-grid single">
+    <div class="exp-panel">
+      <h3 class="gradient-text">Performances &amp; exhibitions</h3>
+      <div class="info-row"><div><b>Gen ART, live visuals</b><small>Generative scenes that react to the music, performed together with the artist</small></div><span>Live performance</span></div>
+      <div class="info-row"><div><b>Museumnight Maastricht</b><small>First public test of The Memory of the Mirror at Natural History Museum of Maastricht</small></div><span>Public test</span></div>
+      <div class="info-row"><div><b>Expo Technology driven art</b><small>The Memory of the Mirror, 1 July 2025</small></div><span>Exhibition</span></div>
     </div>
   </div>
 

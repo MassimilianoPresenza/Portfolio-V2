@@ -694,3 +694,23 @@ spline-viewer { display: block; width: 100%; height: calc(100vh - 80px); }
 .proto-fs { border: 0; cursor: pointer; font-family: var(--font-body); }
 .proto-frame:fullscreen { width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; border: 0; box-shadow: none; }
 .proto-frame:-webkit-full-screen { width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; border: 0; box-shadow: none; }
+
+/* =====================================================
+   ABOUT PAGE POLISH
+   ===================================================== */
+/* visible keyboard focus everywhere (there was none before) */
+:focus-visible { outline: 2px solid var(--c2); outline-offset: 3px; border-radius: 4px; }
+/* rotating role line under the name */
+.role { margin-top: 1rem; font: 500 clamp(1.1rem, 2.4vw, 1.6rem)/1.4 var(--font-body); color: var(--text); }
+.role-word { display: inline-block; font-weight: 700; color: var(--c2); transition: opacity 0.35s ease, transform 0.35s ease; }
+.role-word.is-out { opacity: 0; transform: translateY(8px); }
+body.light-mode .role-word { color: #007a63; }
+/* skill filter (panels have pointer-events: none, so the buttons switch it back on) */
+.skill-filter { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; pointer-events: auto; }
+.skill-filter button {
+  padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(0, 238, 255, 0.3); background: transparent; color: var(--text);
+  font: 500 0.85rem var(--font-body); cursor: pointer; transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.skill-filter button:hover { border-color: var(--c2); }
+.skill-filter button[aria-pressed="true"] { background: var(--gradient); border-color: transparent; color: #000; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .role-word { transition: none; } }
