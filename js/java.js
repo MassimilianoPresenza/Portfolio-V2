@@ -140,3 +140,22 @@ document.querySelectorAll("[data-embed]").forEach((frame) => {
     fills.forEach((f) => { f.style.transition = ""; f.style.transform = ""; });
   });
 })();
+
+/* ===== 8. EASTER EGG: Konami code (or 5 quick taps on "Let's Connect") opens play.html ===== */
+(() => {
+  const seq = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
+  let p = 0;
+  document.addEventListener("keydown", (e) => {
+    const k = (e.key || "").toLowerCase();
+    p = k === seq[p] ? p + 1 : (k === seq[0] ? 1 : 0);
+    if (p === seq.length) { p = 0; location.href = "play.html"; }
+  });
+  const t = document.querySelector(".footer .title");
+  if (!t) return;
+  let taps = 0, timer;
+  t.addEventListener("click", () => {
+    taps++; clearTimeout(timer);
+    timer = setTimeout(() => (taps = 0), 2000);
+    if (taps >= 5) location.href = "play.html";
+  });
+})();

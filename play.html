@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Secret arcade - MassimilianoPresenza.nl</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    .egg { max-width: 640px; margin: 0 auto; padding: clamp(40px, 7vw, 80px) 20px 80px; text-align: center; font-family: var(--font-body); }
+    .egg .project-title { margin: 14px 0 10px; }
+    .egg-sub { color: var(--muted); margin-bottom: 8px; }
+    .egg .seg { max-width: 420px; margin: 24px auto 18px; }
+    .egg-bar { display: flex; justify-content: space-between; gap: 12px; min-height: 1.4em; margin-bottom: 10px; font: 500 0.9rem var(--font-body); color: var(--muted); }
+    .egg-bar #egg-score { color: var(--c2); font-weight: 600; }
+    .egg canvas, .react, .mem button {
+      border: 1px solid rgba(0, 238, 255, 0.3);
+    }
+    .egg canvas {
+      display: block; width: 100%; aspect-ratio: 1; border-radius: 20px; touch-action: none;
+      background: color-mix(in srgb, var(--bg) 60%, transparent);
+      box-shadow: 0 0 60px rgba(0, 238, 255, 0.15);
+    }
+    .mem { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .mem button {
+      aspect-ratio: 1; border-radius: 14px; background: transparent; color: var(--text);
+      font-size: clamp(1.6rem, 7vw, 2.6rem); cursor: pointer; transition: background 0.2s, opacity 0.2s;
+    }
+    .mem button.up { background: var(--gradient); }
+    .mem button.done { opacity: 0.4; }
+    .react {
+      width: 100%; aspect-ratio: 2 / 1; border-radius: 20px; cursor: pointer; color: #000;
+      font: 700 clamp(1.1rem, 4vw, 1.6rem) var(--font-body); background: var(--gradient);
+    }
+    .react[data-state="waiting"] { background: #FF4D4D; }
+    .react[data-state="ready"] { background: #20E32A; }
+    #arc { aspect-ratio: 4 / 3; }
+    #tet { aspect-ratio: 1 / 2; max-width: 240px; margin: 0 auto; }
+    .egg-back { margin-top: 36px; }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo-box">
+      <img src="assets/logo.svg" alt="logo" class="logo-img">
+      <div class="logo-naam">massimiliano</div>
+    </a>
+    <nav class="nav-links">
+      <a href="all-projects.html">Works</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="about.html">About me</a>
+    </nav>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <img src="assets/light_mode_sun.svg" alt="Toggle Theme" id="theme-icon">
+    </div>
+  </header>
+
+  <main class="egg">
+    <span class="project-eyebrow">Secret page</span>
+    <h1 class="project-title gradient-text">You found the arcade</h1>
+    <p class="egg-sub">Arrow keys or WASD. Swipe or drag on touch screens.</p>
+
+    <div class="seg" role="group" aria-label="Choose a game">
+      <button type="button" data-game="snake" aria-pressed="true">Snake</button>
+      <button type="button" data-game="memory" aria-pressed="false">Memory</button>
+      <button type="button" data-game="react" aria-pressed="false">Reaction</button>
+      <button type="button" data-game="pong" aria-pressed="false">Pong</button>
+      <button type="button" data-game="breakout" aria-pressed="false">Breakout</button>
+      <button type="button" data-game="tetris" aria-pressed="false">Tetris</button>
+    </div>
+
+    <div class="egg-bar"><span id="egg-info"></span><span id="egg-score"></span></div>
+
+    <div id="g-snake"><canvas id="snake" width="400" height="400" aria-label="Snake game"></canvas></div>
+    <div id="g-memory" hidden><div class="mem" id="mem"></div></div>
+    <div id="g-react" hidden><button type="button" class="react" id="react" data-state="idle">Click to start</button></div>
+
+    <div id="g-arc" hidden><canvas id="arc" width="400" height="300" aria-label="Pong and Breakout"></canvas></div>
+    <div id="g-tet" hidden><canvas id="tet" width="200" height="400" aria-label="Tetris"></canvas></div>
+
+    <a href="index.html" class="btn animated-gradient-border egg-back">Back to the portfolio</a>
+  </main>
+
+  <script src="js/java.js" defer></script>
+  <script defer>
+    window.addEventListener("DOMContentLoaded", () => {
+      const $ = (s) => document.querySelector(s);
+      const css = (n) => getComputedStyle(document.body).getPropertyValue(n).trim();
+      const store = {
+        get(k) { try { return Number(localStorage.getItem(k)) || 0; } catch (e) { return 0; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+      };
+      const info = (t) => ($("#egg-info").textContent = t);
+      const score = (t) => ($("#egg-score").textContent = t);
+
+      /* ---------- SNAKE ---------- */
+      const N = 20, cell = 20, cv = $("#snake"), ctx = cv.getContext("2d");
+      const snake = {
+        timer: 0,
+        start() {
+          this.body = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+          this.dir = this.next = { x: 1, y: 0 };
+          this.points = 0; this.running = false; this.over = false;
+          this.food = this.place();
+          clearInterval(this.timer);
+          info("Press a direction to start");
+          score("Score 0 · Best " + store.get("egg-snake"));
+          this.draw();
+        },
+        stop() { clearInterval(this.timer); this.running = false; },
+        place() {
+          let f;
+          do { f = { x: Math.floor(Math.random() * N), y: Math.floor(Math.random() * N) }; }
+          while (this.body.some((s) => s.x === f.x && s.y === f.y));
+          return f;
+        },
+        go() {
+          clearInterval(this.timer);
+          this.timer = setInterval(() => this.tick(), Math.max(60, 120 - this.points * 2));
+        },
+        tick() {
+          this.dir = this.next;
+          const h = this.body[0];
+          const n = { x: (h.x + this.dir.x + N) % N, y: (h.y + this.dir.y + N) % N };
+          if (this.body.some((s) => s.x === n.x && s.y === n.y)) return this.end();
+          this.body.unshift(n);
+          if (n.x === this.food.x && n.y === this.food.y) {
+            this.points++; this.food = this.place(); this.go();
+            score("Score " + this.points + " · Best " + store.get("egg-snake"));
+          } else this.body.pop();
+          this.draw();
+        },
+        end() {
+          clearInterval(this.timer); this.running = false; this.over = true;
+          if (this.points > store.get("egg-snake")) store.set("egg-snake", this.points);
+          info("Game over. Press Space to play again");
+          score("Score " + this.points + " · Best " + store.get("egg-snake"));
+        },
+        steer(dx, dy) {
+          if (this.over) return;
+          if (dx === -this.dir.x && dy === -this.dir.y) return;
+          this.next = { x: dx, y: dy };
+          if (!this.running) { this.running = true; info("Eat the glowing dots"); this.go(); }
+        },
+        draw() {
+          ctx.clearRect(0, 0, cv.width, cv.height);
+          ctx.fillStyle = css("--c2");
+          this.body.forEach((s, i) => {
+            ctx.globalAlpha = i === 0 ? 1 : 0.75;
+            ctx.fillStyle = i === 0 ? css("--c1") : css("--c2");
+            ctx.fillRect(s.x * cell + 1, s.y * cell + 1, cell - 2, cell - 2);
+          });
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = "#FFC531"; ctx.shadowColor = "#FFC531"; ctx.shadowBlur = 12;
+          ctx.beginPath(); ctx.arc(this.food.x * cell + cell / 2, this.food.y * cell + cell / 2, cell / 3, 0, 7); ctx.fill();
+          ctx.shadowBlur = 0;
+        },
+        key(k) {
+          const m = { arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1], arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0] };
+          if (m[k]) { this.steer(...m[k]); return true; }
+          if ((k === " " || k === "enter") && this.over) { this.start(); return true; }
+          return false;
+        }
+      };
+      let tx = 0, ty = 0;
+      cv.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+      cv.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) { if (snake.over) snake.start(); return; }
+        Math.abs(dx) > Math.abs(dy) ? snake.steer(Math.sign(dx), 0) : snake.steer(0, Math.sign(dy));
+      });
+
+      /* ---------- MEMORY ---------- */
+      const memEl = $("#mem");
+      const memory = {
+        start() {
+          const sym = ["🌌", "🕳️", "🚀", "🪐", "🌙", "⭐", "🎧", "🎨"];
+          this.cards = [...sym, ...sym].sort(() => Math.random() - 0.5);
+          this.open = []; this.moves = 0; this.found = 0; this.lock = false;
+          memEl.innerHTML = "";
+          this.cards.forEach((s, i) => {
+            const b = document.createElement("button");
+            b.type = "button"; b.setAttribute("aria-label", "Card " + (i + 1));
+            b.addEventListener("click", () => this.flip(i, b));
+            memEl.appendChild(b);
+          });
+          info("Find all 8 pairs");
+          const best = store.get("egg-mem");
+          score("Moves 0" + (best ? " · Best " + best : ""));
+        },
+        stop() {},
+        flip(i, b) {
+          if (this.lock || b.classList.contains("up") || b.classList.contains("done")) return;
+          b.classList.add("up"); b.textContent = this.cards[i]; this.open.push([i, b]);
+          if (this.open.length < 2) return;
+          this.moves++;
+          const [[i1, b1], [i2, b2]] = this.open;
+          if (this.cards[i1] === this.cards[i2]) {
+            [b1, b2].forEach((x) => { x.classList.remove("up"); x.classList.add("done"); });
+            this.open = []; this.found++;
+            if (this.found === 8) {
+              const best = store.get("egg-mem");
+              if (!best || this.moves < best) store.set("egg-mem", this.moves);
+              info("All pairs found. Press Space to play again");
+            }
+          } else {
+            this.lock = true;
+            setTimeout(() => {
+              [b1, b2].forEach((x) => { x.classList.remove("up"); x.textContent = ""; });
+              this.open = []; this.lock = false;
+            }, 750);
+          }
+          const best = store.get("egg-mem");
+          score("Moves " + this.moves + (best ? " · Best " + best : ""));
+        },
+        key(k) { if ((k === " " || k === "enter") && this.found === 8) { this.start(); return true; } return false; }
+      };
+
+      /* ---------- REACTION ---------- */
+      const rb = $("#react");
+      const react = {
+        t: 0, timer: 0,
+        start() { this.set("idle", "Click to start"); info("Click when it turns green"); const b = store.get("egg-react"); score(b ? "Best " + b + " ms" : ""); },
+        stop() { clearTimeout(this.timer); },
+        set(state, text) { rb.dataset.state = state; rb.textContent = text; },
+        press() {
+          const s = rb.dataset.state;
+          if (s === "idle") {
+            this.set("waiting", "Wait for green…");
+            this.timer = setTimeout(() => { this.t = performance.now(); this.set("ready", "NOW!"); }, 1000 + Math.random() * 3000);
+          } else if (s === "waiting") {
+            clearTimeout(this.timer); this.set("idle", "Too early! Click to try again");
+          } else if (s === "ready") {
+            const ms = Math.round(performance.now() - this.t);
+            const best = store.get("egg-react");
+            if (!best || ms < best) store.set("egg-react", ms);
+            this.set("idle", ms + " ms. Click to try again");
+            score(ms + " ms · Best " + store.get("egg-react") + " ms");
+          }
+        },
+        key(k) { if (k === " " || k === "enter") { this.press(); return true; } return false; }
+      };
+      rb.addEventListener("click", () => react.press());
+
+      /* ---------- shared: held keys + frame loop ---------- */
+      const held = {};
+      const W = 400, H = 300, arc = $("#arc"), ac = arc.getContext("2d");
+      const loop = (g) => { cancelAnimationFrame(g.raf); const f = () => { g.step(); g.draw(); g.raf = requestAnimationFrame(f); }; g.raf = requestAnimationFrame(f); };
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      arc.addEventListener("pointermove", (e) => {
+        if (!e.buttons || !current.drag) return;
+        const r = arc.getBoundingClientRect();
+        current.drag((e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H);
+      });
+
+      /* ---------- PONG ---------- */
+      const pong = {
+        start() { this.p = this.c = H / 2 - 30; this.s = [0, 0]; this.over = false; this.running = false; this.serve(1); info("Move with ↑ ↓ or drag. First to 5"); score("You 0 · CPU 0"); loop(this); },
+        serve(d) { this.b = { x: W / 2, y: H / 2, vx: 3.2 * d, vy: (Math.random() * 2 - 1) * 2.4 }; },
+        stop() { cancelAnimationFrame(this.raf); },
+        drag(x, y) { if (this.over) return; this.p = clamp(y - 30, 0, H - 60); this.running = true; },
+        step() {
+          if (this.over) return;
+          const up = held.arrowup || held.w, dn = held.arrowdown || held.s;
+          if (!this.running) { if (up || dn) this.running = true; else return; }
+          this.p = clamp(this.p + (dn ? 5 : 0) - (up ? 5 : 0), 0, H - 60);
+          const b = this.b;
+          this.c += clamp(b.y - 30 - this.c, -3, 3);
+          b.x += b.vx; b.y += b.vy;
+          if (b.y < 4 || b.y > H - 4) b.vy *= -1;
+          if (b.vx < 0 && b.x < 22 && b.x > 10 && b.y > this.p && b.y < this.p + 60) { b.vx *= -1.06; b.vy = clamp(b.vy + (b.y - this.p - 30) / 10, -5, 5); }
+          if (b.vx > 0 && b.x > W - 22 && b.x < W - 10 && b.y > this.c && b.y < this.c + 60) { b.vx *= -1.06; b.vy = clamp(b.vy + (b.y - this.c - 30) / 10, -5, 5); }
+          if (b.x < 0 || b.x > W) {
+            this.s[b.x < 0 ? 1 : 0]++;
+            score("You " + this.s[0] + " · CPU " + this.s[1]);
+            if (this.s[0] === 5 || this.s[1] === 5) { this.over = true; this.running = false; info((this.s[0] === 5 ? "You win!" : "CPU wins.") + " Press Space to play again"); }
+            this.serve(b.x < 0 ? 1 : -1);
+          }
+        },
+        draw() {
+          ac.clearRect(0, 0, W, H);
+          ac.fillStyle = css("--c2"); ac.fillRect(10, this.p, 8, 60);
+          ac.fillStyle = css("--text"); ac.fillRect(W - 18, this.c, 8, 60);
+          ac.globalAlpha = 0.3; for (let y = 0; y < H; y += 20) ac.fillRect(W / 2 - 1, y, 2, 10);
+          ac.globalAlpha = 1; ac.fillStyle = css("--c1"); ac.beginPath(); ac.arc(this.b.x, this.b.y, 5, 0, 7); ac.fill();
+        },
+        key(k) {
+          if (["arrowup", "arrowdown", "w", "s"].includes(k)) return true;
+          if ((k === " " || k === "enter") && this.over) { this.start(); return true; }
+          return false;
+        }
+      };
+
+      /* ---------- BREAKOUT ---------- */
+      const brk = {
+        start() {
+          this.x = W / 2 - 30; this.pts = 0; this.lives = 3; this.over = false; this.running = false; this.bricks = [];
+          for (let r = 0; r < 5; r++) for (let c = 0; c < 8; c++) this.bricks.push({ x: c * 50 + 5, y: r * 18 + 30, r, a: true });
+          this.reset(); info("← → or drag. Space launches"); score("Score 0 · Lives 3"); loop(this);
+        },
+        reset() { this.running = false; this.b = { x: this.x + 30, y: H - 24, vx: 2.6 * (Math.random() < 0.5 ? -1 : 1), vy: -3.4 }; },
+        stop() { cancelAnimationFrame(this.raf); },
+        drag(x) { if (this.over) return; this.x = clamp(x - 30, 0, W - 60); this.running = true; },
+        step() {
+          if (this.over) return;
+          const l = held.arrowleft || held.a, r = held.arrowright || held.d;
+          if (l || r) { this.x = clamp(this.x + (r ? 6 : 0) - (l ? 6 : 0), 0, W - 60); this.running = true; }
+          const b = this.b;
+          if (!this.running) { b.x = this.x + 30; return; }
+          b.x += b.vx; b.y += b.vy;
+          if (b.x < 4 || b.x > W - 4) b.vx *= -1;
+          if (b.y < 4) b.vy *= -1;
+          if (b.vy > 0 && b.y > H - 22 && b.y < H - 10 && b.x > this.x && b.x < this.x + 60) { b.vy *= -1; b.vx = clamp((b.x - this.x - 30) / 7, -4.5, 4.5); }
+          for (const k of this.bricks) {
+            if (k.a && b.x > k.x && b.x < k.x + 45 && b.y > k.y && b.y < k.y + 14) {
+              k.a = false; b.vy *= -1; this.pts += 10; score("Score " + this.pts + " · Lives " + this.lives); break;
+            }
+          }
+          if (this.bricks.every((k) => !k.a)) { this.over = true; info("Cleared! Press Space to play again"); }
+          if (b.y > H) {
+            this.lives--; score("Score " + this.pts + " · Lives " + this.lives);
+            if (this.lives <= 0) { this.over = true; info("Game over. Press Space to play again"); } else this.reset();
+          }
+        },
+        draw() {
+          ac.clearRect(0, 0, W, H);
+          const cols = [css("--c1"), css("--c2"), "#FFC531", "#FF9A3C", "#FF4D4D"];
+          this.bricks.forEach((k) => { if (k.a) { ac.fillStyle = cols[k.r]; ac.fillRect(k.x, k.y, 45, 14); } });
+          ac.fillStyle = css("--c2"); ac.fillRect(this.x, H - 14, 60, 8);
+          ac.fillStyle = css("--text"); ac.beginPath(); ac.arc(this.b.x, this.b.y, 4, 0, 7); ac.fill();
+        },
+        key(k) {
+          if (["arrowleft", "arrowright", "a", "d"].includes(k)) return true;
+          if (k === " " || k === "enter") { if (this.over) this.start(); else this.running = true; return true; }
+          return false;
+        }
+      };
+
+      /* ---------- TETRIS ---------- */
+      const tcv = $("#tet"), tc = tcv.getContext("2d");
+      const SHAPES = [[[1, 1, 1, 1]], [[1, 1], [1, 1]], [[0, 1, 0], [1, 1, 1]], [[1, 0, 0], [1, 1, 1]], [[0, 0, 1], [1, 1, 1]], [[0, 1, 1], [1, 1, 0]], [[1, 1, 0], [0, 1, 1]]];
+      const TCOL = ["#00EEFF", "#FFC531", "#CC00FF", "#4D7DFF", "#FF9A3C", "#20E32A", "#FF4D4D"];
+      const tet = {
+        start() {
+          clearInterval(this.t);
+          this.g = Array.from({ length: 20 }, () => Array(10).fill(0));
+          this.lines = 0; this.over = false; this.run = false; this.spawn();
+          info("← → move, ↑ rotate, ↓ drop, Space slams"); score("Lines 0 · Best " + store.get("egg-tet")); this.draw();
+        },
+        stop() { clearInterval(this.t); },
+        spawn() {
+          const i = Math.floor(Math.random() * 7);
+          this.k = i + 1; this.m = SHAPES[i].map((r) => [...r]); this.x = 3; this.y = 0;
+          if (this.hit(this.m, this.x, this.y)) this.end();
+        },
+        hit(m, x, y) { return m.some((r, j) => r.some((v, i) => v && (x + i < 0 || x + i > 9 || y + j > 19 || this.g[y + j][x + i]))); },
+        go() { clearInterval(this.t); this.t = setInterval(() => { this.drop(); this.draw(); }, Math.max(100, 550 - this.lines * 15)); },
+        drop() { if (!this.hit(this.m, this.x, this.y + 1)) this.y++; else this.lock(); },
+        lock() {
+          this.m.forEach((r, j) => r.forEach((v, i) => { if (v) this.g[this.y + j][this.x + i] = this.k; }));
+          this.g = this.g.filter((r) => r.some((v) => !v));
+          const n = 20 - this.g.length;
+          for (let i = 0; i < n; i++) this.g.unshift(Array(10).fill(0));
+          if (n) { this.lines += n; this.go(); score("Lines " + this.lines + " · Best " + store.get("egg-tet")); }
+          this.spawn();
+        },
+        end() {
+          clearInterval(this.t); this.over = true;
+          if (this.lines > store.get("egg-tet")) store.set("egg-tet", this.lines);
+          info("Game over. Press Space to play again"); score("Lines " + this.lines + " · Best " + store.get("egg-tet"));
+        },
+        key(k) {
+          if (this.over) { if (k === " " || k === "enter") { this.start(); return true; } return false; }
+          const keys = ["arrowleft", "a", "arrowright", "d", "arrowup", "w", "arrowdown", "s", " "];
+          if (!keys.includes(k)) return false;
+          if (!this.run) { this.run = true; this.go(); }
+          if (k === "arrowleft" || k === "a") { if (!this.hit(this.m, this.x - 1, this.y)) this.x--; }
+          else if (k === "arrowright" || k === "d") { if (!this.hit(this.m, this.x + 1, this.y)) this.x++; }
+          else if (k === "arrowup" || k === "w") {
+            const m = this.m[0].map((_, i) => this.m.map((r) => r[i]).reverse());
+            if (!this.hit(m, this.x, this.y)) this.m = m;
+          }
+          else if (k === "arrowdown" || k === "s") this.drop();
+          else { while (!this.hit(this.m, this.x, this.y + 1)) this.y++; this.lock(); }
+          if (!this.over) this.draw();
+          return true;
+        },
+        draw() {
+          tc.clearRect(0, 0, 200, 400);
+          const cell = (x, y, c) => { tc.fillStyle = TCOL[c - 1]; tc.fillRect(x * 20 + 1, y * 20 + 1, 18, 18); };
+          this.g.forEach((r, y) => r.forEach((v, x) => v && cell(x, y, v)));
+          if (!this.over) this.m.forEach((r, j) => r.forEach((v, i) => v && cell(this.x + i, this.y + j, this.k)));
+        }
+      };
+      let ux = 0, uy = 0;
+      tcv.addEventListener("touchstart", (e) => { ux = e.touches[0].clientX; uy = e.touches[0].clientY; }, { passive: true });
+      tcv.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - ux, dy = e.changedTouches[0].clientY - uy;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return tet.key(tet.over ? " " : "arrowup");
+        if (Math.abs(dx) > Math.abs(dy)) tet.key(dx > 0 ? "arrowright" : "arrowleft"); else if (dy > 0) tet.key("arrowdown");
+      });
+
+      /* ---------- switching + keyboard ---------- */
+      const games = { snake, memory, react, pong, breakout: brk, tetris: tet };
+      const boxOf = { pong: "arc", breakout: "arc", tetris: "tet" };
+      let current = snake;
+      function show(name) {
+        current.stop();
+        current = games[name];
+        const box = boxOf[name] || name;
+        ["snake", "memory", "react", "arc", "tet"].forEach((g) => { $("#g-" + g).hidden = g !== box; });
+        document.querySelectorAll("[data-game]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.game === name)));
+        current.start();
+      }
+      document.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => show(b.dataset.game)));
+      document.addEventListener("keyup", (e) => { held[e.key.toLowerCase()] = false; });
+      document.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+        held[k] = true;
+        if (e.target.closest && e.target.closest("[data-game]") && (k === " " || k === "enter")) return;
+        if (e.target === rb && (k === " " || k === "enter")) return; /* the button's own click handles it */
+        if (current.key(k)) e.preventDefault();
+      });
+
+      snake.start();
+    });
+  </script>
+</body>
+
+</html>
