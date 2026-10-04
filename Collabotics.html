@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generative ART - MassimilianoPresenza</title>
+  <title>Collabotics XPath Generator - MassimilianoPresenza</title>
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
@@ -13,132 +13,172 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
+
+  <style>
+    /* Page-specific styles for the XPath weight-blending demo (everything else comes from style.css) */
+    .demo-stage.xp { display: flex; flex-direction: column; gap: 18px; padding: clamp(18px, 3vw, 32px); aspect-ratio: auto; height: auto; justify-content: flex-start; }
+    .xp-label { font: 600 0.75rem var(--font-body); letter-spacing: 0.25em; text-transform: uppercase; color: var(--c2); }
+    .xp-code { font: 500 clamp(0.9rem, 1.6vw, 1.15rem)/1.6 ui-monospace, "SFMono-Regular", Consolas, monospace; padding: 18px 20px; border-radius: 12px; border: 1px solid var(--line); background: rgba(128,128,128,0.12); color: var(--text); overflow-x: auto; white-space: nowrap; }
+    .xp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .xp-tags span { font: 500 0.8rem var(--font-body); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--c2); color: var(--text); }
+    .xp-weights { display: grid; gap: 12px; }
+    .xp-w { display: grid; grid-template-columns: minmax(150px, 220px) 1fr 3.2ch; gap: 12px; align-items: center; font: 500 0.85rem var(--font-body); color: var(--muted); }
+    .xp-w .bar-track { height: 6px; }
+    .xp-w i { display: block; height: 100%; width: 0; background: var(--gradient); border-radius: 5px; transition: width .25s ease; }
+    .xp-w output { text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+    .stat { padding: 18px; border-radius: 12px; border: 1px solid var(--line); text-align: center; }
+    .stat b { display: block; font: 600 clamp(1.4rem, 3vw, 2.2rem) var(--font-title); background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat small { display: block; margin-top: 6px; font: 400 0.85rem var(--font-body); color: var(--muted); }
+    .cmp { width: 100%; border-collapse: collapse; font: 400 0.95rem var(--font-body); color: var(--muted); margin-top: 6px; }
+    .cmp th, .cmp td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .cmp th { color: var(--text); font-weight: 600; }
+    .cmp code { font-family: ui-monospace, Consolas, monospace; color: var(--text); font-size: 0.9em; }
+    .table-wrap { overflow-x: auto; }
+    @media (max-width: 700px) { .stat-row { grid-template-columns: repeat(2, 1fr); } .xp-w { grid-template-columns: 1fr 3.2ch; } .xp-w .bar-track { grid-column: 1 / -1; order: 3; } }
+  </style>
 </head>
 
 <body class="project-page">
   <div class="background-svg">
     <header class="navbar">
-    <a href="index.html" class="logo-box">
-      <img src="assets/logo.svg" alt="logo" class="logo-img" />
-      <div class="logo-naam">massimiliano</div>
-    </a>
-    <nav class="nav-links">
+      <a href="index.html" class="logo-box">
+        <img src="assets/logo.svg" alt="logo" class="logo-img" />
+        <div class="logo-naam">massimiliano</div>
+      </a>
+      <nav class="nav-links">
         <a href="all-projects.html">Works</a>
         <a href="index.html#experience">Experience</a>
         <a href="#connecting">Get in Touch</a>
         <a href="about.html">About me</a>
       </nav>
-    <div class="theme-toggle" onclick="toggleTheme()">
-      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
-    </div>
-  </header>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
+      </div>
+    </header>
 
-<section class="project-hero compact">
+    <!-- HERO -->
+    <section class="project-hero compact">
       <div class="project-hero-text">
-        <span class="project-eyebrow">Project 01</span>
-        <h1 class="project-title gradient-text">Gen ART - Album</h1>
-        <span class="project-status is-done">Page Finished</span>
+        <span class="project-eyebrow">Project 03</span>
+        <h1 class="project-title gradient-text">Collabotics XPath Generator</h1>
+        <span class="project-status is-progress">Waiting Approval</span>
         <div class="buttons project-actions"><a href="#demo" class="btn animated-gradient-border">Try the demo</a></div>
       </div>
-      <figure class="project-hero-media cover-small"><img src="assets/project1-gen-art-album-cover.png" alt="Album cover: black hole artwork"></figure>
+      <figure class="project-hero-media cover-small"><img src="assets/project3-collabotics-team.png" alt="The project team with the Collabotics project owner after the final presentation"></figure>
     </section>
 
+    <!-- DESCRIPTION -->
     <section class="project-description">
       <div class="exp-grid single">
         <div class="exp-panel">
           <h3 class="gradient-text">About the project</h3>
-          <p>During this project, I found it really interesting that we were given a lot of creative freedom: we could create almost anything we wanted, as long as it was discussed with the artist. In the first week, we met the artist we would be working with.</p>
-          <p>The project lasted ten weeks, and we started without any prior knowledge about the artist or the technology involved. We learned to work with Processing (using P5.js), a programming language similar to JavaScript but with added libraries for features like frequency and BPM detection. This allowed us to create scenes that reacted to music or could be controlled using Arduino.</p>
-          <p>The project was part of the Live Visuals for Live Music module, where we acted as VJs, designing generative visuals that reacted to live music performances. Our work was meant to create an immersive audiovisual experience for the audience. Using real-time systems and interactive designs, we explored how technology, sound, and visuals come together to create emotion and energy during live events.</p>
+          <p>Collabotics builds Robotic Process Automation (RPA) software: robots that take over repetitive work in digital applications. To click the right button or read the right field, the robot needs to find that element on screen. It does this by turning the interface into an XML tree and pointing at the element with an <strong>XPath</strong> expression.</p>
+          <p>The problem is that interfaces change. The same screen can look different per device, browser or operating system, and an XPath that works on one version can break on the next. A previous Zuyd project built a genetic algorithm that generates these XPaths automatically. In this project, together with my team and under supervision of Zuyd's Research Centre for Data Intelligence, we made that algorithm more robust, more flexible and easier to use.</p>
+          <p>Because the work was done for a real client with real customer data, the dataset (160 invoices and order confirmations converted to XML) stays private under NDA. The page below therefore shows the ideas, not the data.</p>
         </div>
         <div class="exp-panel">
-          <h3 class="gradient-text">The idea behind it</h3>
-          <p>Even though we had ten weeks, it went by really fast and the deadlines quickly started closing in. I wanted to create something inspired by black holes, based on my favorite movie Interstellar. I love space and black holes, so that became the main source of my inspiration.</p>
-          <p>Throughout the project, I learned a lot, not only by myself but also by working with friends. We helped each other, which made the process less stressful.</p>
+          <h3 class="gradient-text">The challenge</h3>
+          <p>The existing algorithm worked, but it had four clear limits. It could only target <strong>one element</strong> per run, it used <strong>one fixed definition of a "good" XPath</strong>, its evolutionary operators were hardcoded, and there was no interface: changing a setting meant editing and recompiling the code.</p>
+          <p>Before we could change anything we had to understand a codebase we did not write. Issues like the "single-target anchoring" were hidden deep in the generation loop and only showed up after long code analysis and testing. That taught me a lot about reading, questioning and safely improving someone else's work.</p>
         </div>
         <div class="exp-panel">
-          <h3 class="gradient-text">Research &amp; live performance</h3>
-          <p>While working on the coding part, we were also required to conduct research. We did desk research on existing generative art projects, which we could remix or take inspiration from. This taught us how to back up our creative ideas with proper research, combining creativity with structured design thinking.</p>
-          <p>At the end of the ten weeks, we had a live performance together with the artist, where we presented and showcased the visual scenes we had created. We also had to explain what we made, how it worked, and how the visuals connected to the music in real-time.</p>
-          <p>Overall, it was a really fun project, and definitely one of my favorite experiences so far!</p>
+          <h3 class="gradient-text">What we built</h3>
+          <p><strong>Multi-target seeding.</strong> The starting population now contains candidates for every target element, and mutation and replenishment pick a random target each generation. The algorithm can now find XPaths that match several elements at once.</p>
+          <p><strong>Configurable fitness presets.</strong> Readability, Speed and Flexibility each tune a set of fitness weights. Three sliders blend them, so the user can steer the result anywhere between the three goals.</p>
+          <p><strong>New sub-algorithms.</strong> Tournament Selection and Uniform Crossover were added next to Roulette Wheel and Two-Point Crossover, and can be switched at runtime.</p>
+          <p><strong>Prototype interface.</strong> A WinForms app (XPathGenUI) lets you load XML files, pick target elements in a tree view, set the sliders and strategies, and inspect the results with fitness, precision and recall.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">Method &amp; collaboration</h3>
+          <p>We followed <strong>Design Science Research</strong>: requirements, design and build, evaluate, and repeat. Every sprint ended in a meeting with the technical project owner at Collabotics, whose feedback went far beyond requirements. He spotted, for example, that our Speed preset behaved like a readability preset, and that attributes such as <code>@Handle</code> and <code>@ProcessId</code> are volatile and should be avoided.</p>
+          <p>Our group mixed IT and non-IT backgrounds. That made the documentation and stakeholder communication stronger, but it also meant the core development work was not evenly spread, and we learned to plan around that.</p>
         </div>
       </div>
     </section>
 
+    <!-- RESULTS -->
+    <section class="projects">
+      <h2 class="title gradient-text">What we found |</h2>
+    </section>
+    <div class="exp-grid single">
+      <div class="exp-panel">
+        <h3 class="gradient-text">Results</h3>
+        <div class="stat-row">
+          <div class="stat"><b>3</b><small>quality presets that blend continuously</small></div>
+          <div class="stat"><b>4</b><small>sub-algorithm combinations</small></div>
+          <div class="stat"><b>160</b><small>real XML documents tested</small></div>
+          <div class="stat"><b>100%</b><small>recall on the multi-target test (5 buttons)</small></div>
+        </div>
+        <p style="margin-top:24px">The presets produce clearly different XPaths. <strong>Speed</strong> gives longer paths with direct child steps, which are cheaper to evaluate. <strong>Readability</strong> and <strong>Flexibility</strong> both prefer short paths with <code>//</code> that point straight at the element type, without volatile attributes.</p>
+        <p>Multi-target seeding now finds all targets, but full recall needs more general expressions, which lowers precision (83.3% in the five-button test). The choice of selection and crossover strategy hardly changed the result, so the fitness function matters more than the operators for this problem.</p>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Preset</th><th>Typical XPath</th><th>Character</th></tr></thead>
+            <tbody>
+              <tr><td>Readability</td><td><code>//Word[@Text='20']</code></td><td>Short, concise</td></tr>
+              <tr><td>Speed</td><td><code>/Document/Page/Paragraph/Line/Word[...]</code></td><td>Longer, explicit child steps, fast to evaluate</td></tr>
+              <tr><td>Flexibility</td><td><code>//Word[@Text='20']</code></td><td>Short, no volatile structure, survives UI changes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="exp-panel">
+        <h3 class="gradient-text">Limits &amp; next steps</h3>
+        <p>Targets in <em>different</em> subtrees cannot be matched precisely with the current XPath grammar. The next step is to extend the chromosome to support disjunctive predicates. The Flexibility preset also reduces attribute use in general, instead of filtering only volatile attributes; adding volatility metadata to the metadata provider would fix that. Finally, the algorithm should be validated on more application types.</p>
+      </div>
+    </div>
+
     <!-- INTERACTIVE DEMO -->
-  <section class="projects">
-    <h2 id="demo" class="title gradient-text">Try it yourself |</h2>
-  </section>
-  <section class="demo" id="gen-demo">
-    <div class="demo-stage">
-      <div class="demo-poster">
-        <button type="button" class="demo-launch btn animated-gradient-border">Launch interactive demo</button>
-        <span class="demo-status" role="status"></span>
+    <section class="projects">
+      <h2 id="demo" class="title gradient-text">Try it yourself |</h2>
+    </section>
+    <section class="demo is-live" id="xp-demo">
+      <div class="demo-stage xp">
+        <span class="xp-label">Illustrative best XPath</span>
+        <div class="xp-code" id="xp-out" aria-live="polite"></div>
+        <div class="xp-tags" id="xp-tags"></div>
+        <span class="xp-label">Blended fitness weights</span>
+        <div class="xp-weights" id="xp-weights"></div>
       </div>
-    </div>
 
-    <div class="demo-controls">
-      <div class="ctl-group">
-        <span class="ctl-label">Scene</span>
-        <div class="seg">
-          <button type="button" data-scene="stars" aria-pressed="true">Stars</button>
-          <button type="button" data-scene="wormhole" aria-pressed="false">Wormhole</button>
-          <button type="button" data-scene="rings" aria-pressed="false">Rings</button>
+      <div class="demo-controls">
+        <label class="ctl-range" for="x-read"><span>Readability</span><output id="o-read"></output></label>
+        <input id="x-read" data-k="read" type="range" min="0" max="100" value="34">
+        <label class="ctl-range" for="x-speed"><span>Speed</span><output id="o-speed"></output></label>
+        <input id="x-speed" data-k="speed" type="range" min="0" max="100" value="33">
+        <label class="ctl-range" for="x-flex"><span>Flexibility</span><output id="o-flex"></output></label>
+        <input id="x-flex" data-k="flex" type="range" min="0" max="100" value="33">
+        <div class="demo-actions">
+          <button type="button" class="demo-btn" data-preset="read">Readability</button>
+          <button type="button" class="demo-btn" data-preset="speed">Speed</button>
+          <button type="button" class="demo-btn" data-preset="flex">Flexibility</button>
         </div>
       </div>
-      <div class="ctl-group">
-        <span class="ctl-label">Ink</span>
-        <div class="seg">
-          <button type="button" data-ink="white" aria-pressed="true">White</button>
-          <button type="button" data-ink="cyan" aria-pressed="false">Cyan</button>
-          <button type="button" data-ink="ember" aria-pressed="false">Ember</button>
-        </div>
-      </div>
+    </section>
+    <p class="demo-note">The three sliders always add up to 100%, just like in the prototype. The weights are blended with the formula from the project, <em>w = &alpha;r&middot;w<sub>read</sub> + &alpha;s&middot;w<sub>speed</sub> + &alpha;f&middot;w<sub>flex</sub></em>, using the real preset values. Parameters a preset does not set are treated as a neutral 1.0 here, and the XPath shown is an illustration of the behaviour we measured, not a live run of the algorithm.</p>
 
-      <label class="ctl-range" for="d-k1"><span></span><output></output></label>
-      <input id="d-k1" data-knob="0" type="range" min="0" max="100" value="45">
-      <label class="ctl-range" for="d-k2"><span></span><output></output></label>
-      <input id="d-k2" data-knob="1" type="range" min="0" max="100" value="50">
-      <label class="ctl-range" for="d-k3"><span></span><output></output></label>
-      <input id="d-k3" data-knob="2" type="range" min="0" max="100" value="0">
-
-      <div class="ctl-beat">
-        <label class="ctl-toggle"><input id="d-beat" data-param="beat" type="checkbox" checked><span>Beat reaction</span></label>
-        <span class="beat-dot" aria-hidden="true"></span>
-      </div>
-      <label class="ctl-toggle"><input id="d-music" type="checkbox"><span>Play music (abyss)</span></label>
-      <p class="demo-msg" role="status"></p>
-      <label class="ctl-range" for="d-bpm"><span>Tempo (BPM)</span><output for="d-bpm"></output></label>
-      <input id="d-bpm" data-param="bpm" type="range" min="60" max="180" value="120">
-
-      <div class="demo-actions">
-        <button type="button" class="demo-btn" data-action="pause">Pause</button>
-        <button type="button" class="demo-btn" data-action="reset">Reset</button>
-        <button type="button" class="demo-btn" data-action="save">Save image</button>
+    <!-- SKILLS -->
+    <section class="projects">
+      <h2 class="title gradient-text">Main Subjects learned |</h2>
+    </section>
+    <div class="exp-grid single">
+      <div class="exp-panel skills-panel">
+        <h3 class="gradient-text">Skills &amp; technology</h3>
+        <div class="skill"><div class="skill-top">Genetic algorithms <em>1 project</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.55"></div></div></div>
+        <div class="skill"><div class="skill-top">XPath &amp; XML <em>1 project</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.55"></div></div></div>
+        <div class="skill"><div class="skill-top">C# / .NET <em>1 project</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.45"></div></div></div>
+        <div class="skill"><div class="skill-top">Data analysis &amp; testing <em>1 project</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+        <div class="skill"><div class="skill-top">Design Science Research <em>1 project</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.6"></div></div></div>
+        <div class="skill"><div class="skill-top">Requirements &amp; stakeholder communication <em>2+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.7"></div></div></div>
       </div>
     </div>
-  </section>
-  <p class="demo-note">The three knobs work like the Arduino potentiometers in the live set-up and change meaning per scene. The beat is simulated from the tempo, or follows the track when music is on.</p>
 
-  <section class="projects">
-    <h2 class="title gradient-text">Main Subjects learned |</h2>
-  </section>
-  <div class="exp-grid single">
-    <div class="exp-panel skills-panel">
-      <h3 class="gradient-text">Skills &amp; technology</h3>
-      <div class="skill"><div class="skill-top">p5.js <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-      <div class="skill"><div class="skill-top">Arduino <em>1 year</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
-      <div class="skill"><div class="skill-top">Design research <em>2+ years</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.7"></div></div></div>
-    </div>
-
-  </div>
-
-
-      <nav class="project-nav" aria-label="Project navigation">
-    <a class="pn-link prev" href="index.html"><small>&larr; Back</small><span>Home page</span></a>
-    <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
-    <a class="pn-link next" href="project2.html"><small>Next &rarr;</small><span>App Design - NHM</span></a>
-  </nav>
+    <nav class="project-nav" aria-label="Project navigation">
+      <a class="pn-link prev" href="project2.html"><small>&larr; Previous</small><span>App Design - NHM</span></a>
+      <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
+      <a class="pn-link next" href="index.html"><small>Next &rarr;</small><span>Home page</span></a>
+    </nav>
 
     <footer class="footer">
       <div id="connecting" class="projects footer-collumn">
@@ -162,10 +202,11 @@
           </a>
         </div>
       </div>
-  </footer>
+    </footer>
   </div>
+
   <script src="js/java.js" defer></script>
-  <script src="js/gen-art-demo.js" defer></script>
+  <script src="js/collabotics-demo.js" defer></script>
 </body>
 
 </html>
