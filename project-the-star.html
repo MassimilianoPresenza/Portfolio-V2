@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Star (VR) - MassimilianoPresenza</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Page-only styles for the glance chips and the preview bubbles (nothing in style.css needs changing) -->
+  <style>
+    .glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 4px; }
+    .glance div { padding: 14px 16px; border: 1px solid rgba(0, 238, 255, 0.25); border-radius: 14px; font-family: var(--font-body); }
+    .glance small { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c2); margin-bottom: 4px; }
+    .glance span { font-size: 1rem; }
+
+    .project-page .exp-panel { pointer-events: auto; }
+    .project-page .project-description .exp-panel > .glance { grid-column: 2; margin-top: 0; }
+    @media (max-width: 860px) { .project-page .project-description .exp-panel > .glance { grid-column: 1; } }
+
+    .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .choices h4 { font: 700 1rem var(--font-body); color: var(--c2); margin-bottom: 6px; }
+    .choices p { font: 400 1rem/1.7 var(--font-body); color: var(--muted); }
+
+    .peek { padding: 18px 0; border-top: 1px solid rgba(128, 128, 128, 0.25); }
+    .peek:first-of-type { border-top: 0; padding-top: 0; }
+    .peek-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .peek-row h4 { font: 700 1.1rem var(--font-body); margin-bottom: 4px; }
+    .peek-row p { font: 400 0.95rem/1.5 var(--font-body); color: var(--muted); max-width: 52ch; }
+    .peek-btn { cursor: pointer; }
+    .peek-bubble {
+      position: relative; margin-top: 18px; padding: 22px 24px; max-height: 380px; overflow: auto;
+      border: 1px solid var(--c2); border-radius: 18px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      box-shadow: 0 0 30px var(--glow);
+      font: 400 0.98rem/1.75 var(--font-body); color: var(--muted);
+      animation: peekIn 0.25s ease;
+    }
+    .peek-bubble[hidden] { display: none; }
+    .peek-bubble::before {
+      content: ""; position: absolute; top: -9px; right: 48px; width: 16px; height: 16px;
+      background: var(--bg); border-left: 1px solid var(--c2); border-top: 1px solid var(--c2); transform: rotate(45deg);
+    }
+    .peek-bubble p + p { margin-top: 12px; }
+    .peek-bubble q, .peek-bubble em { color: var(--text); }
+    .peek-bubble .peek-tag { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c2); margin-bottom: 10px; }
+    .peek-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .peek-table th, .peek-table td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid rgba(128, 128, 128, 0.25); }
+    .peek-table th { color: var(--c2); font-weight: 600; white-space: nowrap; }
+    .peek-table td:first-child { color: var(--text); white-space: nowrap; }
+    @keyframes peekIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .peek-bubble { animation: none; } }
+    @media (max-width: 600px) { .peek-bubble::before { right: 24px; } .peek-table td:first-child { white-space: normal; } }
+  </style>
+</head>
+
+<body class="project-page">
+  <div class="background-svg">
+    <header class="navbar">
+      <a href="index.html" class="logo-box">
+        <img src="assets/logo.svg" alt="logo" class="logo-img" />
+        <div class="logo-naam">massimiliano</div>
+      </a>
+      <nav class="nav-links">
+        <a href="all-projects.html">Works</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="#connecting">Get in Touch</a>
+        <a href="about.html">About me</a>
+      </nav>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
+      </div>
+    </header>
+
+    <section class="project-hero compact">
+      <div class="project-hero-text">
+        <span class="project-eyebrow">Immersive Story &middot; VR</span>
+        <h1 class="project-title gradient-text">The Star - VR Adaptation</h1>
+        <span class="project-status is-done">Page Finished</span>
+        <div class="buttons project-actions"><a href="#walkthrough" class="btn animated-gradient-border">Watch the walkthrough</a></div>
+      </div>
+      <figure class="project-hero-media cover-small"><img src="assets/project-the-star-cover.jpg" alt="Neptune and a drifting asteroid in the VR scene"></figure>
+    </section>
+
+    <section class="project-description">
+      <div class="exp-grid single">
+        <div class="exp-panel">
+          <h3 class="gradient-text">At a glance</h3>
+          <div class="glance">
+            <div><small>Course</small><span>Immersive Story, CMD 4.1 (15 EC)</span></div>
+            <div><small>Based on</small><span><em>The Star</em> by H. G. Wells</span></div>
+            <div><small>Made with</small><span>Unreal Engine 5, VR headset</span></div>
+            <div><small>Duration</small><span>10 weeks, individual</span></div>
+          </div>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">About the project</h3>
+          <p>Immersive Story is a fourth-year elective at CMD Maastricht about storytelling through Virtual Reality. The assignment: take an existing short story and turn it into a VR experience, while staying as close as possible to the meaning of the original. It doesn't have to be a literal translation. The goal is to use what makes VR special (spatiality, immersion, presence, agency and embodiment) to tell the story in a new way.</p>
+          <p>I chose <em>The Star</em> by H. G. Wells and built a prototype in Unreal Engine 5. The course went from story analysis and VR design theory, through concepting and concept art, to paper prototypes and a high-fidelity prototype.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">The original story</h3>
+          <p>In Wells' story, a wandering body from outside the solar system collides with Neptune. The two merge into a burning mass that is pulled toward the Sun, swung by Jupiter's gravity, and passes close to the Earth. A mathematician warns the world and is laughed at. The Earth is flooded, shaken and scorched, but survives.</p>
+          <p>The story ends with Martian astronomers who barely notice any damage. From millions of miles away, the greatest human catastrophe looks small. That detached, distant viewpoint became the starting point for my adaptation.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">My adaptation</h3>
+          <p>I wrote my own version of the story as the base for the experience. You are an unseen observer of the cosmos, floating in the Solar System. You watch an ancient asteroid, nicknamed Billy, enter from deep space, get flung and then slowed by the giant planets, until it is on a direct course for Earth.</p>
+          <p>Then the story hands the decision to you. Humanity prays and promises to change, while a cult screams that people don't deserve Earth. Do they deserve saving? You can intervene, or let nature take its course. Either way, doubt follows: a time rift opens and you get to choose again. You can preview the story, the scene script and my logbook <a href="#behind" class="gradient-text">further down</a>.</p>
+        </div>
+        <div class="exp-panel">
+          <h3 class="gradient-text">Why VR fits this story</h3>
+          <p>Wells already tells his story from far away, so I made that distance the player's role. In VR the Solar System becomes a space you stand inside, with planets around you, and the asteroid's path is something you follow with your head and eyes.</p>
+          <p>Agency is the core of the concept. Wells' mathematician can only warn; the observer can act. The choice (save or let go) and the time rift that lets you undo it turn the question of whether humanity deserves a second chance into something the player has to answer and then live with.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN CHOICES -->
+    <section class="projects">
+      <h2 class="title gradient-text">Design choices |</h2>
+    </section>
+    <div class="exp-grid single">
+      <div class="exp-panel">
+        <h3 class="gradient-text">How the VR medium carries the story</h3>
+        <div class="choices">
+          <div><h4>Spatiality</h4><p>The Solar System is a space around you. The camera drifts backward at the key moment, so Earth hangs between you and the asteroid's burning light.</p></div>
+          <div><h4>Presence &amp; embodiment</h4><p>You are an unseen observer, a being of the cosmos. There is no body to play, so the role is carried by scale, silence and distance.</p></div>
+          <div><h4>Agency</h4><p>You can rotate the Earth at will and hear different voices on each side: prayers, acceptance and curses. Then you make the choice: intervene or let go.</p></div>
+          <div><h4>Sound &amp; time</h4><p>A calm, cosmic voice-over guides the experience, with deliberate pauses. A time rift lets the player rewind and choose again after doubt.</p></div>
+        </div>
+      </div>
+      <div class="exp-panel">
+        <h3 class="gradient-text">What I took away from it</h3>
+        <p>I started in a third-person template, then found that moving assets into a VR project was complicated, so I restarted from the VR template. It cost time, but it made the rest of development smoother and more focused.</p>
+        <p>Testing in the headset matters more than assumptions. Things I expected to work on a monitor behaved differently in VR, so I tested and adjusted regularly on the real hardware. Lighting, atmosphere and scale did most of the work in making the space feel believable.</p>
+        <p>The biggest lesson was connecting theory to practice: terms like presence, embodiment and plausibility illusion became concrete design decisions once I had to build them.</p>
+      </div>
+    </div>
+
+    <!-- WALKTHROUGH VIDEO -->
+    <section class="projects">
+      <h2 id="walkthrough" class="title gradient-text">Project walkthrough |</h2>
+    </section>
+    <div class="media-block">
+      <figure class="media-item media-video">
+        <video controls preload="metadata" poster="assets/project-the-star-cover.jpg" style="aspect-ratio: 2046 / 1080;">
+          <source src="assets/project-the-star-walkthrough.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption>Walkthrough of the Unreal Engine 5 prototype: Neptune, the asteroid and the Sun in the Solar System scene.</figcaption>
+      </figure>
+      <figure class="media-item media-video">
+        <video controls preload="none" poster="assets/project-the-star-early-test.jpg" style="aspect-ratio: 2628 / 1192;">
+          <source src="assets/project-the-star-early-test.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption>Early test in the Unreal Engine editor: the first star field and planet placement, before the final build.</figcaption>
+      </figure>
+    </div>
+
+    <!-- PREVIEWS -->
+    <section class="projects">
+      <h2 id="behind" class="title gradient-text">Behind the project |</h2>
+    </section>
+    <div class="exp-grid single">
+      <div class="exp-panel">
+        <h3 class="gradient-text">Take a look inside</h3>
+
+        <div class="peek">
+          <div class="peek-row">
+            <div><h4>My version of the story</h4><p>The short story I wrote as the base for the experience: the observer, Billy, and the choice.</p></div>
+            <button type="button" class="peek-btn btn animated-gradient-border" aria-expanded="false" aria-controls="peek-story">Preview</button>
+          </div>
+          <div class="peek-bubble" id="peek-story" hidden>
+            <span class="peek-tag">Excerpt &middot; The Star, MSJ Presenza</span>
+            <p>Across every continent, people fall to their knees. They are praying, pleading with a "god" they've neglected, a vast, global promise to right their centuries of wrongs: to end the wars, to curb the greed, to heal the scarred body of the Earth. A plea for a second chance.</p>
+            <p>But another, darker voice also cuts through the panic. A cult, long lurking in the shadows, now stands in the open, screaming their absolute conviction into the void. <q>We don't deserve it!</q> they shriek.</p>
+            <p><em>Do they deserve saving?</em></p>
+            <p>The fate of a world, and all its hopes and dreams, now rests on the answer to that single, unbearable question. And now, you must decide. Will you save the Earth, or will you let it perish?</p>
+            <p>If you intervene, the people rejoice, but their promises dissolve and their wars continue, and doubt sets in. If you let Billy go, the end is swift, but you feel the weight of it and wonder whether they could have changed. Either way, a time rift appears and the choice is yours once more.</p>
+          </div>
+        </div>
+
+        <div class="peek">
+          <div class="peek-row">
+            <div><h4>Operational story (scene script)</h4><p>The experience scene by scene: what the viewer sees and hears.</p></div>
+            <button type="button" class="peek-btn btn animated-gradient-border" aria-expanded="false" aria-controls="peek-ops">Preview</button>
+          </div>
+          <div class="peek-bubble" id="peek-ops" hidden>
+            <span class="peek-tag">Scene overview</span>
+            <table class="peek-table">
+              <thead><tr><th>Scene</th><th>The viewer sees</th><th>The viewer hears</th></tr></thead>
+              <tbody>
+                <tr><td>1 &middot; Introduction</td><td>Darkness, then the Milky Way. The Solar System comes into focus and an ancient, spinning asteroid streaks across the black.</td><td>Calm, cosmic voice-over: you are an unseen observer.</td></tr>
+                <tr><td>2 &middot; The Journey</td><td>The asteroid is pulled in by Neptune and arcs around Jupiter's storms.</td><td>"It slowed." Its path bends.</td></tr>
+                <tr><td>3 &middot; The Revelation</td><td>A glowing trajectory line traces the new course. Earth is revealed, blue and fragile.</td><td>"A single thought could change everything."</td></tr>
+                <tr><td>4 &middot; The Choice</td><td>You rotate the Earth and hear different voices on each side. The camera then drifts back with Earth framed against the asteroid's light.</td><td>Prayers, acceptance and curses, then: "Will you save them, or let the void reclaim what it once owned?"</td></tr>
+                <tr><td>5 &middot; Intervention</td><td>A pulse of cosmic energy tilts the asteroid's path. People celebrate, wars resume, and a time rift opens.</td><td>"Was your mercy wasted?"</td></tr>
+                <tr><td>6 &middot; Letting go</td><td>The impact, the Earth breaking apart, then drifting fragments and a new rift.</td><td>"For the first time, you feel&hellip; human."</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="peek">
+          <div class="peek-row">
+            <div><h4>Design logbook</h4><p>My ten-week process, from first analysis to final presentation.</p></div>
+            <button type="button" class="peek-btn btn animated-gradient-border" aria-expanded="false" aria-controls="peek-log">Preview</button>
+          </div>
+          <div class="peek-bubble" id="peek-log" hidden>
+            <span class="peek-tag">Process in short</span>
+            <table class="peek-table">
+              <tbody>
+                <tr><td>Weeks 1&ndash;2</td><td>Introduction to the minor, VR play sessions and Unreal basics. Chose <em>The Star</em> out of three stories and analysed its themes of cosmic destruction and human insignificance.</td></tr>
+                <tr><td>Weeks 3&ndash;4</td><td>Concepting with feedback on narrative structure and emotional engagement. VR theory: embodiment, presence, plausibility illusion and the virtual continuum.</td></tr>
+                <tr><td>Week 5</td><td>Oral assessment on storytelling theory and the concept presentation.</td></tr>
+                <tr><td>Week 6</td><td>Started building in Unreal. Switched from a third-person template to a VR template and experimented with lighting, atmosphere and scale.</td></tr>
+                <tr><td>Weeks 7&ndash;8</td><td>Creating assets, adjusting textures, refining interactions and testing them in the headset.</td></tr>
+                <tr><td>Weeks 9&ndash;10</td><td>Intensive build and test sessions, then polishing lighting, sound and pacing before the final presentation.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="projects">
+      <h2 class="title gradient-text">Main Subjects learned |</h2>
+    </section>
+    <div class="exp-grid single">
+      <div class="exp-panel skills-panel">
+        <h3 class="gradient-text">Skills &amp; technology</h3>
+        <div class="skill"><div class="skill-top">Unreal Engine 5 <em>1 block</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.4"></div></div></div>
+        <div class="skill"><div class="skill-top">VR design theory <em>1 block</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+        <div class="skill"><div class="skill-top">Story analysis &amp; concepting <em>1 block</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.5"></div></div></div>
+        <div class="skill"><div class="skill-top">Concept art <em>1 block</em></div><div class="bar-track"><div class="bar-fill" style="--w:0.4"></div></div></div>
+      </div>
+    </div>
+
+    <nav class="project-nav" aria-label="Project navigation">
+      <a class="pn-link prev" href="index.html"><small>&larr; Back</small><span>Home page</span></a>
+      <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
+      <a class="pn-link next" href="all-projects.html"><small>Next &rarr;</small><span>More projects</span></a>
+    </nav>
+
+    <footer class="footer">
+      <div id="connecting" class="projects footer-collumn">
+        <h2 class="title gradient-text">Let's Connect</h2>
+        <h3 class="touch">Get in touch for opportunities or just to say hi!</h3>
+      </div>
+      <div class="wrapper">
+        <div class="boxes">
+          <a href="https://www.linkedin.com/in/massimilianopresenza/">
+            <img src="assets/icon-linkedin.svg" alt="icon" />
+          </a>
+        </div>
+        <div class="boxes">
+          <a href="https://www.instagram.com/massimilianopresenza/">
+            <img src="assets/icon-instagram.svg" alt="icon" />
+          </a>
+        </div>
+        <div class="boxes">
+          <a href="mailto:MassimilianoPresenza@gmail.com">
+            <img src="assets/icon-mail.svg" alt="icon" />
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Preview bubbles: one open at a time, Esc closes
+    (function () {
+      var btns = document.querySelectorAll('.peek-btn');
+      function close(b) {
+        b.setAttribute('aria-expanded', 'false');
+        b.textContent = 'Preview';
+        document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+      }
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var open = b.getAttribute('aria-expanded') === 'true';
+          btns.forEach(close);
+          if (!open) {
+            b.setAttribute('aria-expanded', 'true');
+            b.textContent = 'Close preview';
+            document.getElementById(b.getAttribute('aria-controls')).hidden = false;
+          }
+        });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') btns.forEach(close); });
+    })();
+  </script>
+  <script src="js/java.js" defer></script>
+  <script src="js/space-bg.js" defer></script>
+</body>
+
+</html>
