@@ -4,59 +4,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MassimilianoPresenza.nl</title>
+  <title>Connect - MassimilianoPresenza.nl</title>
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+  <!-- NAVBAR -->
   <header class="navbar">
     <a href="index.html" class="logo-box">
-      <img src="assets/logo.svg" alt="logo" class="logo-img" />
+      <img src="assets/logo.svg" alt="logo" class="logo-img">
       <div class="logo-naam">massimiliano</div>
     </a>
     <nav class="nav-links">
-      <a href="index.html#works">Works</a>
-      <a href="index.html#experience">Experience</a>
-      <a href="#connecting">Get in Touch</a>
-      <a href="#">Community</a>
+      <a href="all-projects.html">Works</a>
+      <a href="#experience">Experience</a>
+      <a href="Connect.html">Get in Touch</a>
+      <a href="about.html">About me</a>
     </nav>
     <div class="theme-toggle" onclick="toggleTheme()">
-      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon" />
+      <img src="assets/icon-theme-sun.svg" alt="Toggle Theme" id="theme-icon">
     </div>
-    
   </header>
 
+  <!-- HERO -->
+<section class="frontpage">
+  <div class="container">
+    <h1 class="title gradient-text title-center">Get in touch</h1>
+    <p class="bio">
+  Communication &amp; Multimedia Design student looking for an internship from
+  <strong class="gradient-text">February 2027</strong> and a graduation placement from
+  <strong class="gradient-text">November 2027</strong> in interactive media, creative technology or UX/UI.
+  The quickest way to reach me is by email.
+</p>
+<p class="bio">Maastricht/Heerlen/Landgraaf &middot; open to remote or on-site &middot; Dutch, English, German, Italian</p>
+
+    <div class="buttons">
+      <a href="mailto:MassimilianoPresenza@gmail.com" class="btn animated-gradient-border">Send an email</a>
+      <a href="assets/Massimiliano-Presenza-CV.pdf" class="btn animated-gradient-border" download="Massimiliano-Presenza-CV.pdf">Download CV</a>
+      <a href="https://www.linkedin.com/in/massimilianopresenza/" class="btn animated-gradient-border">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+    <!-- FOOTER -->
   <footer class="footer">
     <div id="connecting" class="projects footer-collumn">
       <h2 class="title gradient-text">Let's Connect</h2>
       <h3 class="touch">Get in touch for opportunities or just to say hi!</h3>
     </div>
     <div class="wrapper">
-      <div class="boxes">
-        <a href="https://www.linkedin.com/in/massimilianopresenza/">
-          <img src="assets/icon-linkedin.svg" alt="icon"/>
-        </a>
-      </div>
-      <div class="boxes">
-        <a href="https://www.instagram.com/massimilianopresenza/">
-          <img src="assets/icon-instagram.svg" alt="icon"/>
-        </a>
-      </div>
-      <div class="boxes">
-        <a href="mailto:MassimilianoPresenza@gmail.com">
-          <img src="assets/icon-mail.svg" alt="icon"/>
-        </a>
-      </div>
+      <a class="boxes" href="https://www.linkedin.com/in/massimilianopresenza/"><img src="assets/icon-linkedin.svg" alt="LinkedIn"></a>
+      <a class="boxes" href="https://www.instagram.com/massimilianopresenza/"><img src="assets/icon-instagram.svg" alt="Instagram"></a>
+      <a class="boxes" href="mailto:MassimilianoPresenza@gmail.com"><img src="assets/icon-mail.svg" alt="Email"></a>
     </div>
+   <p class="egg-hint">
+  Built by a designer who can't resist an easter egg.<br>
+  <span class="egg-keys">
+    <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd>
+  </span><br>
+  or tap "Let's Connect" 5× in 2 seconds to play.
+</p>
   </footer>
+
   <script src="js/java.js" defer></script>
 </body>
 
