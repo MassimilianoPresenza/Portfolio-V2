@@ -146,18 +146,23 @@ document.querySelectorAll("[data-embed]").forEach((frame) => {
 })();
 
 
-/* ===== 7. ABOUT: filter skills by category and replay the bars ===== */
+/* ===== 7. ABOUT + HOME: filter skills by category and replay the bars ===== */
 (() => {
   const bar = document.querySelector(".skill-filter");
   if (!bar) return;
   const panel = bar.closest(".skills-panel");
+  if (!panel) return;
   const skills = panel.querySelectorAll(".skill[data-cat]");
   bar.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
     const cat = btn.dataset.filter;
     bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-    skills.forEach((s) => { s.hidden = cat !== "all" && s.dataset.cat !== cat; });
+    skills.forEach((s) => {
+      const hide = cat !== "all" && s.dataset.cat !== cat;
+      s.hidden = hide;
+      s.style.display = hide ? "none" : "";   /* works even if CSS sets display on .skill */
+    });
     const fills = panel.querySelectorAll(".skill:not([hidden]) .bar-fill");
     fills.forEach((f) => { f.style.transition = "none"; f.style.transform = "scaleX(0)"; });
     void panel.offsetWidth;                     /* force a reflow so the reset sticks */
