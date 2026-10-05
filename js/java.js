@@ -24,69 +24,40 @@
 
 const icon = document.getElementById("theme-icon");
 const logo = document.querySelector(".logo-img");
+
+const ICONS = {
+  dark:  { icon: "assets/icon-theme-sun.svg",  hover: "assets/icon-theme-sun-hover.svg",  logo: "assets/logo.svg" },
+  light: { icon: "assets/icon-theme-moon.svg", hover: "assets/icon-theme-moon-hover.svg", logo: "assets/logo-dark.svg" }
+};
+
+// Read the saved choice (default: dark). try/catch because storage can be blocked.
 let isDark = true;
+try { isDark = localStorage.getItem("theme") !== "light"; } catch (e) {}
 
-function toggleTheme() {
-  // Toggle light and dark mode
-  document.body.classList.toggle("light-mode");
-  isDark = !isDark;
-
-  // Update the icons based on the theme mode
-  icon.src = isDark ? "assets/icon-theme-sun.svg" : "assets/icon-theme-moon.svg";
-  logo.src = isDark ? "assets/logo.svg" : "assets/logo-dark.svg";
+function applyTheme() {
+  document.body.classList.toggle("light-mode", !isDark);
+  const set = isDark ? ICONS.dark : ICONS.light;
+  if (icon) icon.src = set.icon;
+  if (logo) logo.src = set.logo;
 }
 
-// Change the icon on hover
-icon.addEventListener("mouseover", () => {
-  if (isDark) {
-    icon.src = "assets/icon-theme-sun-hover.svg"; // Set moon icon on hover (for light mode)
-  } else {
-    icon.src = "assets/icon-theme-moon-hover.svg"; // Set sun icon on hover (for dark mode)
-  }
-});
+function toggleTheme() {
+  isDark = !isDark;
+  try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (e) {}
+  applyTheme();
+}
 
-// pop-up button frontpage
+applyTheme();   // apply the saved theme on every page load
 
-// Popup functionality for frontpage buttons
-const popupOverlay = document.getElementById('popup-overlay');
-const popupClose = document.getElementById('popup-close');
-const frontButtons = document.querySelectorAll('.buttons a');
-
-frontButtons.forEach(btn => {
-  btn.addEventListener('click', e => {
-    if (!popupOverlay || btn.getAttribute('href') !== '#') return;
-    e.preventDefault();
-
-    const popupTitle = document.getElementById('popup-title');
-    const title = btn.dataset.title; // <-- read custom title
-
-    if (title) {
-      popupTitle.textContent = title; // <-- set popup title
-    }
-
-    popupOverlay.classList.add('active');
+// Hover icons (only if the theme icon exists on this page)
+if (icon) {
+  icon.addEventListener("mouseover", () => {
+    icon.src = (isDark ? ICONS.dark : ICONS.light).hover;
   });
-});
-
-
-
-if (popupClose) popupClose.addEventListener('click', () => {
-  popupOverlay.classList.remove('active');
-});
-
-if (popupOverlay) popupOverlay.addEventListener('click', e => {
-  if (e.target === popupOverlay) {
-    popupOverlay.classList.remove('active');
-  }
-});
-
-
-
-// Revert to the appropriate icon after hover, depending on current theme
-icon.addEventListener("mouseleave", () => {
-  icon.src = isDark ? "assets/icon-theme-sun.svg" : "assets/icon-theme-moon.svg";
-});
-
+  icon.addEventListener("mouseleave", () => {
+    icon.src = (isDark ? ICONS.dark : ICONS.light).icon;
+  });
+}
 
 /* ===== 4. EXPERIENCE: animate skill bars when visible ===== */
 const panelObserver = new IntersectionObserver((entries) => {
@@ -179,7 +150,7 @@ document.querySelectorAll("[data-embed]").forEach((frame) => {
     p = k === seq[p] ? p + 1 : (k === seq[0] ? 1 : 0);
     if (p === seq.length) { p = 0; location.href = "play.html"; }
   });
-  const t = document.querySelector(".footer .title");
+  const t = document.querySelector(".footer");
   if (!t) return;
   let taps = 0, timer;
   t.addEventListener("click", () => {
