@@ -601,6 +601,33 @@ spline-viewer { display: block; width: 100%; height: calc(100vh - 80px); }
 }
 /* project 1 album cover: smaller and centered in its column (change 380px to taste) */
 
+/* Easter egg hint in the footer */
+.egg-hint {
+  max-width: 520px;
+  margin: 28px auto 0;
+  padding: 0 16px;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.9;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+.egg-hint:hover { opacity: 1; }
+
+.egg-keys { display: inline-block; margin: 4px 0; }
+
+.egg-hint kbd {
+  display: inline-block;
+  min-width: 1.7em;
+  margin: 2px;
+  padding: 2px 6px;
+  font: inherit;
+  font-size: 0.85em;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+}
+
 /* =====================================================
    PROJECT 1: compact hero + article layout
    ===================================================== */
