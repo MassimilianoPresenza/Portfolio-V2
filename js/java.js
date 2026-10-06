@@ -159,3 +159,24 @@ document.querySelectorAll("[data-embed]").forEach((frame) => {
     if (taps >= 5) location.href = "play.html";
   });
 })();
+
+/* ===== 9. PROJECT PAGES: preview bubbles (The Star). One open at a time, Esc closes ===== */
+(() => {
+  const btns = document.querySelectorAll(".peek-btn");
+  if (!btns.length) return;
+  const close = (b) => {
+    b.setAttribute("aria-expanded", "false");
+    b.textContent = "Preview";
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+  };
+  btns.forEach((b) => b.addEventListener("click", () => {
+    const wasOpen = b.getAttribute("aria-expanded") === "true";
+    btns.forEach(close);
+    if (!wasOpen) {
+      b.setAttribute("aria-expanded", "true");
+      b.textContent = "Close preview";
+      document.getElementById(b.getAttribute("aria-controls")).hidden = false;
+    }
+  }));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") btns.forEach(close); });
+})();

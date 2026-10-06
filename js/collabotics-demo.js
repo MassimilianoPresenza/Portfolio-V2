@@ -46,7 +46,10 @@
     const others = Object.keys(inputs).filter(o => o !== k);
     const v = +e.target.value, rest = 100 - v;
     const sum = others.reduce((s, o) => s + +inputs[o].value, 0);
-    others.forEach(o => { inputs[o].value = sum ? Math.round(+inputs[o].value / sum * rest) : Math.round(rest / 2); });
+    /* first slider rounds, the last one takes the remainder, so the total is always exactly 100 */
+    const first = sum ? Math.round(+inputs[others[0]].value / sum * rest) : Math.round(rest / 2);
+    inputs[others[0]].value = first;
+    inputs[others[1]].value = rest - first;
     render();
   });
   root.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => {
