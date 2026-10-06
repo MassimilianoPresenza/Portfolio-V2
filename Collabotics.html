@@ -14,33 +14,9 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
 
-  <style>
-    /* Page-specific styles for the XPath weight-blending demo (everything else comes from style.css) */
-    .demo-stage.xp { display: flex; flex-direction: column; gap: 18px; padding: clamp(18px, 3vw, 32px); aspect-ratio: auto; height: auto; justify-content: flex-start; }
-    .xp-label { font: 600 0.75rem var(--font-body); letter-spacing: 0.25em; text-transform: uppercase; color: var(--c2); }
-    .xp-code { font: 500 clamp(0.9rem, 1.6vw, 1.15rem)/1.6 ui-monospace, "SFMono-Regular", Consolas, monospace; padding: 18px 20px; border-radius: 12px; border: 1px solid var(--line); background: rgba(128,128,128,0.12); color: var(--text); overflow-x: auto; white-space: nowrap; }
-    .xp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .xp-tags span { font: 500 0.8rem var(--font-body); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--c2); color: var(--text); }
-    .xp-weights { display: grid; gap: 12px; }
-    .xp-w { display: grid; grid-template-columns: minmax(150px, 220px) 1fr 3.2ch; gap: 12px; align-items: center; font: 500 0.85rem var(--font-body); color: var(--muted); }
-    .xp-w .bar-track { height: 6px; }
-    .xp-w i { display: block; height: 100%; width: 0; background: var(--gradient); border-radius: 5px; transition: width .25s ease; }
-    .xp-w output { text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
-    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
-    .stat { padding: 18px; border-radius: 12px; border: 1px solid var(--line); text-align: center; }
-    .stat b { display: block; font: 600 clamp(1.4rem, 3vw, 2.2rem) var(--font-title); background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .stat small { display: block; margin-top: 6px; font: 400 0.85rem var(--font-body); color: var(--muted); }
-    .cmp { width: 100%; border-collapse: collapse; font: 400 0.95rem var(--font-body); color: var(--muted); margin-top: 6px; }
-    .cmp th, .cmp td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
-    .cmp th { color: var(--text); font-weight: 600; }
-    .cmp code { font-family: ui-monospace, Consolas, monospace; color: var(--text); font-size: 0.9em; }
-    .table-wrap { overflow-x: auto; }
-    @media (max-width: 700px) { .stat-row { grid-template-columns: repeat(2, 1fr); } .xp-w { grid-template-columns: 1fr 3.2ch; } .xp-w .bar-track { grid-column: 1 / -1; order: 3; } }
-  </style>
 </head>
 
 <body class="project-page">
-  <div class="background-svg">
     <header class="navbar">
       <a href="index.html" class="logo-box">
         <img src="assets/logo.svg" alt="logo" class="logo-img" />
@@ -203,7 +179,6 @@
         </div>
       </div>
     </footer>
-  </div>
 
   <script src="js/java.js" defer></script>
   <script src="js/collabotics-demo.js" defer></script>

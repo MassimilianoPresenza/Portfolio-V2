@@ -43,6 +43,8 @@
     #arc { aspect-ratio: 4 / 3; }
     #tet { aspect-ratio: 1 / 2; max-width: 240px; margin: 0 auto; }
     .egg-back { margin-top: 36px; }
+    #egg-again { margin-top: 20px; cursor: pointer; }
+    #egg-again[hidden] { display: none; }
   </style>
 </head>
 
@@ -86,6 +88,8 @@
     <div id="g-arc" hidden><canvas id="arc" width="400" height="300" aria-label="Pong and Breakout"></canvas></div>
     <div id="g-tet" hidden><canvas id="tet" width="200" height="400" aria-label="Tetris"></canvas></div>
 
+    <button type="button" class="btn animated-gradient-border" id="egg-again" hidden>Play again</button>
+
     <a href="index.html" class="btn animated-gradient-border egg-back">Back to the portfolio</a>
   </main>
 
@@ -100,6 +104,7 @@
       };
       const info = (t) => ($("#egg-info").textContent = t);
       const score = (t) => ($("#egg-score").textContent = t);
+      const again = (on) => { $("#egg-again").hidden = !on; }; /* "Play again" button for touch screens */
 
       /* ---------- SNAKE ---------- */
       const N = 20, cell = 20, cv = $("#snake"), ctx = cv.getContext("2d");
@@ -108,7 +113,7 @@
         start() {
           this.body = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
           this.dir = this.next = { x: 1, y: 0 };
-          this.points = 0; this.running = false; this.over = false;
+          this.points = 0; this.running = false; this.over = false; again(false);
           this.food = this.place();
           clearInterval(this.timer);
           info("Press a direction to start");
@@ -141,7 +146,7 @@
         end() {
           clearInterval(this.timer); this.running = false; this.over = true;
           if (this.points > store.get("egg-snake")) store.set("egg-snake", this.points);
-          info("Game over. Press Space to play again");
+          info("Game over. Press Space or tap Play again"); again(true);
           score("Score " + this.points + " · Best " + store.get("egg-snake"));
         },
         steer(dx, dy) {
@@ -184,7 +189,7 @@
         start() {
           const sym = ["🌌", "🕳️", "🚀", "🪐", "🌙", "⭐", "🎧", "🎨"];
           this.cards = [...sym, ...sym].sort(() => Math.random() - 0.5);
-          this.open = []; this.moves = 0; this.found = 0; this.lock = false;
+          this.open = []; this.moves = 0; this.found = 0; this.lock = false; again(false);
           memEl.innerHTML = "";
           this.cards.forEach((s, i) => {
             const b = document.createElement("button");
@@ -209,7 +214,7 @@
             if (this.found === 8) {
               const best = store.get("egg-mem");
               if (!best || this.moves < best) store.set("egg-mem", this.moves);
-              info("All pairs found. Press Space to play again");
+              info("All pairs found. Press Space or tap Play again"); again(true);
             }
           } else {
             this.lock = true;
@@ -263,7 +268,7 @@
 
       /* ---------- PONG ---------- */
       const pong = {
-        start() { this.p = this.c = H / 2 - 30; this.s = [0, 0]; this.over = false; this.running = false; this.serve(1); info("Move with ↑ ↓ or drag. First to 5"); score("You 0 · CPU 0"); loop(this); },
+        start() { again(false); this.p = this.c = H / 2 - 30; this.s = [0, 0]; this.over = false; this.running = false; this.serve(1); info("Move with ↑ ↓ or drag. First to 5"); score("You 0 · CPU 0"); loop(this); },
         serve(d) { this.b = { x: W / 2, y: H / 2, vx: 3.2 * d, vy: (Math.random() * 2 - 1) * 2.4 }; },
         stop() { cancelAnimationFrame(this.raf); },
         drag(x, y) { if (this.over) return; this.p = clamp(y - 30, 0, H - 60); this.running = true; },
@@ -281,7 +286,7 @@
           if (b.x < 0 || b.x > W) {
             this.s[b.x < 0 ? 1 : 0]++;
             score("You " + this.s[0] + " · CPU " + this.s[1]);
-            if (this.s[0] === 5 || this.s[1] === 5) { this.over = true; this.running = false; info((this.s[0] === 5 ? "You win!" : "CPU wins.") + " Press Space to play again"); }
+            if (this.s[0] === 5 || this.s[1] === 5) { this.over = true; this.running = false; info((this.s[0] === 5 ? "You win!" : "CPU wins.") + " Press Space or tap Play again"); again(true); }
             this.serve(b.x < 0 ? 1 : -1);
           }
         },
@@ -302,7 +307,7 @@
       /* ---------- BREAKOUT ---------- */
       const brk = {
         start() {
-          this.x = W / 2 - 30; this.pts = 0; this.lives = 3; this.over = false; this.running = false; this.bricks = [];
+          again(false); this.x = W / 2 - 30; this.pts = 0; this.lives = 3; this.over = false; this.running = false; this.bricks = [];
           for (let r = 0; r < 5; r++) for (let c = 0; c < 8; c++) this.bricks.push({ x: c * 50 + 5, y: r * 18 + 30, r, a: true });
           this.reset(); info("← → or drag. Space launches"); score("Score 0 · Lives 3"); loop(this);
         },
@@ -324,10 +329,10 @@
               k.a = false; b.vy *= -1; this.pts += 10; score("Score " + this.pts + " · Lives " + this.lives); break;
             }
           }
-          if (this.bricks.every((k) => !k.a)) { this.over = true; info("Cleared! Press Space to play again"); }
+          if (this.bricks.every((k) => !k.a)) { this.over = true; info("Cleared! Press Space or tap Play again"); again(true); }
           if (b.y > H) {
             this.lives--; score("Score " + this.pts + " · Lives " + this.lives);
-            if (this.lives <= 0) { this.over = true; info("Game over. Press Space to play again"); } else this.reset();
+            if (this.lives <= 0) { this.over = true; info("Game over. Press Space or tap Play again"); again(true); } else this.reset();
           }
         },
         draw() {
@@ -352,7 +357,7 @@
         start() {
           clearInterval(this.t);
           this.g = Array.from({ length: 20 }, () => Array(10).fill(0));
-          this.lines = 0; this.over = false; this.run = false; this.spawn();
+          this.lines = 0; this.over = false; this.run = false; again(false); this.spawn();
           info("← → move, ↑ rotate, ↓ drop, Space slams"); score("Lines 0 · Best " + store.get("egg-tet")); this.draw();
         },
         stop() { clearInterval(this.t); },
@@ -375,7 +380,7 @@
         end() {
           clearInterval(this.t); this.over = true;
           if (this.lines > store.get("egg-tet")) store.set("egg-tet", this.lines);
-          info("Game over. Press Space to play again"); score("Lines " + this.lines + " · Best " + store.get("egg-tet"));
+          info("Game over. Press Space or tap Play again"); again(true); score("Lines " + this.lines + " · Best " + store.get("egg-tet"));
         },
         key(k) {
           if (this.over) { if (k === " " || k === "enter") { this.start(); return true; } return false; }
@@ -421,6 +426,7 @@
         current.start();
       }
       document.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => show(b.dataset.game)));
+      $("#egg-again").addEventListener("click", () => current.start());
       document.addEventListener("keyup", (e) => { held[e.key.toLowerCase()] = false; });
       document.addEventListener("keydown", (e) => {
         const k = e.key.toLowerCase();

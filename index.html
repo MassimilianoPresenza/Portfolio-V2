@@ -141,31 +141,7 @@
         <div class="overlay-glow"></div>
       </a>
 
-      <a href="project3.html" class="column-item" hidden>
-        <span class="card-status is-done">Finished</span>
-        <img src="assets/project3-skills21-website.png" alt="Skills21 website">
-        <div class="overlay-title gradient-text"><strong>Web Design - Skills21</strong></div>
-        <div class="overlay-top"></div>
-        <div class="overlay-glow"></div>
-      </a>
-
-      <a href="project4.html" class="column-item">
-        <span class="card-status is-done">Finished</span>
-        <img src="assets/project4-daily-paper-website.png" alt="Daily Paper">
-        <div class="overlay-title gradient-text"><strong>Web Design - Daily Paper</strong></div>
-        <div class="overlay-top"></div>
-        <div class="overlay-glow"></div>
-      </a>
-
-      <a href="project5.html" class="column-item" hidden>
-        <span class="card-status is-done">Finished</span>
-        <img src="assets/project5-fase-a-cover.png" alt="TDA Fase A">
-        <div class="overlay-title gradient-text"><strong>TDA Fase A - Touch Designer</strong></div>
-        <div class="overlay-top"></div>
-        <div class="overlay-glow"></div>
-      </a>
-
-      <a href="project6.html" class="column-item" hidden>
+      <a href="project6.html" class="column-item">
         <span class="card-status is-done">Finished</span>
         <img src="assets/project6-fase-b-cover.jpg" alt="TDA Fase B">
         <div class="overlay-title gradient-text"><strong>TDA Fase B - Touch Designer</strong></div>
@@ -173,23 +149,7 @@
         <div class="overlay-glow"></div>
       </a>
 
-      <a href="Spline.html" class="column-item" hidden>
-        <span class="card-status is-done">Finished</span>
-        <img src="assets/project7-spline-cover.png" alt="Spline">
-        <div class="overlay-title gradient-text"><strong>Spline Projects</strong></div>
-        <div class="overlay-top"></div>
-        <div class="overlay-glow"></div>
-      </a>
-
-      <a href="Unreal.html" class="column-item">
-        <span class="card-status is-done">Finished</span>
-        <img src="assets/project8-unreal-engine-cover.jpg" alt="Unreal Engine">
-        <div class="overlay-title gradient-text"><strong>Unreal Engine Project</strong></div>
-        <div class="overlay-top"></div>
-        <div class="overlay-glow"></div>
-      </a>
-
-      <a href="project-the-star.html" class="column-item" hidden>
+      <a href="project-the-star.html" class="column-item">
         <span class="card-status is-done">Finished</span>
         <img src="assets/project-the-star-cover.jpg" alt="The Star">
         <div class="overlay-title gradient-text"><strong>The Star</strong></div>
@@ -207,23 +167,6 @@
 
     </div>
   </section>
-  <script>
-    /* Recent Projects: pick 3 random cards, different from the previous load */
-    (() => {
-      const cards = [...document.querySelectorAll("#recent-grid .column-item")];
-      if (cards.length <= 3) return;
-      const pick = () => cards.slice().sort(() => Math.random() - 0.5).slice(0, 3);
-      let last = "";
-      try { last = sessionStorage.getItem("recentSet") || ""; } catch (e) {}
-      const key = (set) => set.map((c) => c.getAttribute("href")).sort().join("|");
-      let chosen = pick();
-      for (let i = 0; i < 10 && key(chosen) === last; i++) chosen = pick();
-      try { sessionStorage.setItem("recentSet", key(chosen)); } catch (e) {}
-      const grid = document.getElementById("recent-grid");
-      cards.forEach((c) => (c.hidden = !chosen.includes(c)));
-      chosen.forEach((c) => grid.appendChild(c));   /* random order too */
-    })();
-  </script>
 
   <!-- FOOTER -->
    

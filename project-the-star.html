@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
   <title>The Star (VR) - MassimilianoPresenza</title>
 
   <link rel="stylesheet" href="css/style.css">
@@ -14,55 +15,9 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
 
-  <!-- Page-only styles for the glance chips and the preview bubbles (nothing in style.css needs changing) -->
-  <style>
-    .glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 4px; }
-    .glance div { padding: 14px 16px; border: 1px solid rgba(0, 238, 255, 0.25); border-radius: 14px; font-family: var(--font-body); }
-    .glance small { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c2); margin-bottom: 4px; }
-    .glance span { font-size: 1rem; }
-
-    .project-page .exp-panel { pointer-events: auto; }
-    .project-page .project-description .exp-panel > .glance { grid-column: 2; margin-top: 0; }
-    @media (max-width: 860px) { .project-page .project-description .exp-panel > .glance { grid-column: 1; } }
-
-    .choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
-    .choices h4 { font: 700 1rem var(--font-body); color: var(--c2); margin-bottom: 6px; }
-    .choices p { font: 400 1rem/1.7 var(--font-body); color: var(--muted); }
-
-    .peek { padding: 18px 0; border-top: 1px solid rgba(128, 128, 128, 0.25); }
-    .peek:first-of-type { border-top: 0; padding-top: 0; }
-    .peek-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    .peek-row h4 { font: 700 1.1rem var(--font-body); margin-bottom: 4px; }
-    .peek-row p { font: 400 0.95rem/1.5 var(--font-body); color: var(--muted); max-width: 52ch; }
-    .peek-btn { cursor: pointer; }
-    .peek-bubble {
-      position: relative; margin-top: 18px; padding: 22px 24px; max-height: 380px; overflow: auto;
-      border: 1px solid var(--c2); border-radius: 18px;
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      box-shadow: 0 0 30px var(--glow);
-      font: 400 0.98rem/1.75 var(--font-body); color: var(--muted);
-      animation: peekIn 0.25s ease;
-    }
-    .peek-bubble[hidden] { display: none; }
-    .peek-bubble::before {
-      content: ""; position: absolute; top: -9px; right: 48px; width: 16px; height: 16px;
-      background: var(--bg); border-left: 1px solid var(--c2); border-top: 1px solid var(--c2); transform: rotate(45deg);
-    }
-    .peek-bubble p + p { margin-top: 12px; }
-    .peek-bubble q, .peek-bubble em { color: var(--text); }
-    .peek-bubble .peek-tag { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c2); margin-bottom: 10px; }
-    .peek-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-    .peek-table th, .peek-table td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid rgba(128, 128, 128, 0.25); }
-    .peek-table th { color: var(--c2); font-weight: 600; white-space: nowrap; }
-    .peek-table td:first-child { color: var(--text); white-space: nowrap; }
-    @keyframes peekIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .peek-bubble { animation: none; } }
-    @media (max-width: 600px) { .peek-bubble::before { right: 24px; } .peek-table td:first-child { white-space: normal; } }
-  </style>
 </head>
 
 <body class="project-page">
-  <div class="background-svg">
     <header class="navbar">
       <a href="index.html" class="logo-box">
         <img src="assets/logo.svg" alt="logo" class="logo-img" />
@@ -246,9 +201,9 @@
     </div>
 
     <nav class="project-nav" aria-label="Project navigation">
-      <a class="pn-link prev" href="index.html"><small>&larr; Back</small><span>Home page</span></a>
+      <a class="pn-link prev" href="Unreal.html"><small>&larr; Back</small><span>Home page</span></a>
       <a href="all-projects.html" class="btn animated-gradient-border">All projects</a>
-      <a class="pn-link next" href="all-projects.html"><small>Next &rarr;</small><span>More projects</span></a>
+      <a class="pn-link next" href="Collabotics.html"><small>Next &rarr;</small><span>More projects</span></a>
     </nav>
 
     <footer class="footer">
@@ -274,31 +229,7 @@
         </div>
       </div>
     </footer>
-  </div>
 
-  <script>
-    // Preview bubbles: one open at a time, Esc closes
-    (function () {
-      var btns = document.querySelectorAll('.peek-btn');
-      function close(b) {
-        b.setAttribute('aria-expanded', 'false');
-        b.textContent = 'Preview';
-        document.getElementById(b.getAttribute('aria-controls')).hidden = true;
-      }
-      btns.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var open = b.getAttribute('aria-expanded') === 'true';
-          btns.forEach(close);
-          if (!open) {
-            b.setAttribute('aria-expanded', 'true');
-            b.textContent = 'Close preview';
-            document.getElementById(b.getAttribute('aria-controls')).hidden = false;
-          }
-        });
-      });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') btns.forEach(close); });
-    })();
-  </script>
   <script src="js/java.js" defer></script>
   <script src="js/space-bg.js" defer></script>
 </body>
