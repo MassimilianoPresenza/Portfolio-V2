@@ -21,6 +21,29 @@
     .li-card figcaption { padding: 10px 4px 0; font: 400 0.9rem var(--font-body); color: var(--muted); }
     .media-item.is-diagram img { flex: none; height: auto; object-fit: contain; background: #fff; }
     .media-item.is-screen img { flex: none; height: auto; object-fit: contain; }
+
+    /* Image viewer (lightbox) */
+    .project-hero-media img, .media-item img { cursor: zoom-in; }
+    .lb { position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column; background: rgba(0, 0, 0, 0.93); }
+    .lb[hidden] { display: none; }
+    .lb-stage { flex: 1; min-height: 0; display: flex; overflow: auto; padding: 64px 72px 8px; }
+    .lb-img { margin: auto; display: block; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; cursor: zoom-in; background: #000; box-shadow: 0 0 60px rgba(0, 238, 255, 0.15); }
+    .lb.is-zoomed .lb-img { max-width: none; max-height: none; cursor: zoom-out; }
+    .lb-bar { flex: none; display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding: 12px 72px 22px; font: 400 0.9rem var(--font-body); color: #cfd8dc; }
+    .lb-cap { margin: 0; max-width: 90ch; }
+    .lb-hint { white-space: nowrap; color: #8fa3ab; }
+    .lb-btn { position: fixed; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%; background: rgba(0, 0, 0, 0.6); color: #fff; font: 400 1.7rem/1 var(--font-body); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .lb-btn:hover, .lb-btn:focus-visible { border-color: var(--c2); background: rgba(0, 0, 0, 0.85); outline: none; }
+    .lb-close { top: 16px; right: 16px; }
+    .lb-prev { left: 14px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 14px; top: 50%; transform: translateY(-50%); }
+    .lb.is-single .lb-prev, .lb.is-single .lb-next { display: none; }
+    body.lb-open { overflow: hidden; }
+    @media (max-width: 700px) {
+      .lb-stage { padding: 64px 12px 8px; }
+      .lb-bar { padding: 10px 14px 18px; flex-direction: column; gap: 4px; }
+      .lb-prev, .lb-next { top: auto; bottom: 70px; transform: none; }
+    }
   </style>
 </head>
 
@@ -47,9 +70,9 @@
       <span class="project-eyebrow">Minor AI for Business and Society</span>
       <h1 class="project-title gradient-text">AI Sponsorship Finder</h1>
       <span class="project-status is-done">Page Finished</span>
-      <div class="buttons project-actions"><a href="#website" class="btn animated-gradient-border">Open the live website</a></div>
+      <div class="buttons project-actions"><a href="#website" class="btn animated-gradient-border">See the prototype</a></div>
     </div>
-    <figure class="project-hero-media cover-small"><img src="assets/project10-sponsor-finder-find.png" alt="The Find sponsors screen of the AI Sponsorship Finder, with companies ranked by match score"></figure>
+    <figure class="project-hero-media cover-small"><img src="assets/project10-sponsor-finder-cover.png" alt="Ranked list of sponsors with match scores next to a checkered flag pattern"></figure>
   </section>
 
   <!-- DESCRIPTION -->
@@ -79,6 +102,19 @@
     </div>
   </section>
 
+  <!-- DISCLAIMER -->
+  <div class="exp-grid single">
+    <div class="exp-panel notice" id="disclaimer">
+      <h3 class="gradient-text">Prototype disclaimer</h3>
+      <p>The screenshots and the embedded website on this page show the <strong>prototype</strong> we built for the minor AI for Business and Society. The updated <strong>Rally to Rumble website is up and running</strong> at rallytorumble.com. If you are interested in Rally to Rumble and want to take part in the rally, you can create a real account there.</p>
+      <p>The live website was also created by me and the owners of rally to  rumble. Accounts are approved by us. the website is originally in dutch but you can easily switch to english, german or french.</p>
+      <div class="buttons project-actions">
+        <a href="https://www.rallytorumble.com" class="btn animated-gradient-border" target="_blank" rel="noopener">Visit rallytorumble.com</a>
+        <a href="https://www.rallytorumble.com/signup.html" class="btn animated-gradient-border" target="_blank" rel="noopener">Create an account</a>
+      </div>
+    </div>
+  </div>
+
   <!-- NUMBERS -->
   <section class="projects">
     <h2 class="title gradient-text">In numbers |</h2>
@@ -101,21 +137,25 @@
   </section>
   <section class="media-block">
     <div class="media-grid">
-      <figure class="media-item is-screen">
-        <img src="assets/project10-sponsor-finder-discover.png" alt="Discover companies screen with city, radius and business type filters" loading="lazy">
-        <figcaption>Discover: pick a city in Limburg, a radius of 5 to 50 km and the business types, including car-world branches like tuning or tyres.</figcaption>
+      <figure class="media-item is-screen" style="grid-column: 1 / -1">
+        <img src="assets/project10-sponsor-finder-dashboard.png" alt="Dashboard with next steps per sponsor, sponsor target and quick actions" loading="lazy">
+        <figcaption>Dashboard: the next step per sponsor (approach, write a follow-up), the sponsor target, quick actions and the pipeline at a glance.</figcaption>
       </figure>
       <figure class="media-item is-screen">
-        <img src="assets/project10-sponsor-finder-find.png" alt="Find sponsors screen with a ranked list, match score, value estimate and Why link" loading="lazy">
-        <figcaption>Find sponsors: a ranked list with match score, value estimate and a "Why?" link that explains the score.</figcaption>
+        <img src="assets/project10-sponsor-finder-discover.png" alt="Discover companies screen with city, radius dropdown and business type filters" loading="lazy">
+        <figcaption>Discover: choose a city in Limburg, a radius of 5 to 50 km and business types, including car-world branches like tuning, tyres and bodywork.</figcaption>
       </figure>
       <figure class="media-item is-screen">
-        <img src="assets/project10-sponsor-finder-draft.png" alt="Review draft screen with an AI-drafted email and a confirmation checkbox" loading="lazy">
-        <figcaption>Review draft: the email can be edited or regenerated, and only approved after ticking "I have read the full message".</figcaption>
+        <img src="assets/project10-sponsor-finder-find.png" alt="Find sponsors screen with a ranked list, match score, value estimate and the shared company list" loading="lazy">
+        <figcaption>Find sponsors: a ranked list with match score, value estimate and a "Why?" link, filters, and the shared company list.</figcaption>
       </figure>
       <figure class="media-item is-screen">
-        <img src="assets/project10-sponsor-finder-pipeline.png" alt="Pipeline board with columns from Suggested to Declined" loading="lazy">
-        <figcaption>Pipeline: sponsors per stage, from Suggested to Confirmed or Declined, with progress toward the sponsor target.</figcaption>
+        <img src="assets/project10-sponsor-finder-pipeline.png" alt="Pipeline board with a sponsor detail panel showing notes and a suggested next action" loading="lazy">
+        <figcaption>Pipeline: sponsors per stage. The detail panel shows the value estimate, notes, a suggested next action and the activity history.</figcaption>
+      </figure>
+      <figure class="media-item is-screen">
+        <img src="assets/project10-sponsor-finder-mailing.png" alt="Mailing page with a recipient list, a message template with merge fields and sending options" loading="lazy">
+        <figcaption>Mailing: one message to many sponsors with the company name filled in. Each message opens in Gmail or Outlook one by one, so the organizer still presses send.</figcaption>
       </figure>
     </div>
   </section>
@@ -166,22 +206,23 @@
       <div class="info-row"><div><b>Owner interview</b><small>The owners prefer personal contact, so the concept changed from automatic emails to an overview with contact details and optional drafts.</small></div><span>New concept</span></div>
       <div class="info-row"><div><b>Open test session</b><small>With 11 classmates and 2 owners. It showed a missing password reset, missing info about the site and its costs, and the limits of the free tiers.</small></div><span>Fixes</span></div>
       <div class="info-row"><div><b>Owner feedback</b><small>More specific categories such as tuning and a Dutch interface. Both were added.</small></div><span>Added</span></div>
+      <div class="info-row"><div><b>Mailing and dashboard</b><small>The owner asked for faster communication and a view focused on follow-up. The Mailing page sends one message to many sponsors with the company name filled in, and the dashboard lists the next step per sponsor.</small></div><span>Added</span></div>
     </div>
   </div>
 
   <!-- LIVE WEBSITE -->
   <section class="projects">
-    <h2 id="website" class="title gradient-text">The live website |</h2>
+    <h2 id="website" class="title gradient-text">The prototype website |</h2>
   </section>
   <section class="proto">
-    <div class="proto-frame" style="--proto-w: 16; --proto-h: 10" data-title="Rally to Rumble website"
+    <div class="proto-frame" style="--proto-w: 16; --proto-h: 10" data-title="Rally to Rumble prototype website"
       data-embed="https://massimilianopre.github.io/RallyToRumble/">
       <div class="proto-poster" style="background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.65)), url('assets/project10-sponsor-finder-find.png')">
-        <button type="button" class="proto-launch btn animated-gradient-border">Launch website</button>
+        <button type="button" class="proto-launch btn animated-gradient-border">Launch prototype</button>
       </div>
     </div>
-    <p class="proto-note">The real web application, built by me and four classmates. It has the sponsor assistant for organizers and a participant site with route, agenda, photos and sign-up in Dutch, German, English and French. Accounts are approved by an admin, so the sponsor tool itself needs a login.
-      <a href="https://massimilianopre.github.io/RallyToRumble/" target="_blank" rel="noopener">Open it in a new tab &#8599;</a>.</p>
+    <p class="proto-note">The prototype web application, built by me and my project team. The updated live version is at <a href="https://www.rallytorumble.com" target="_blank" rel="noopener">rallytorumble.com</a>. The prototype has the sponsor assistant for organizers and a participant site with route, agenda, photos and sign-up in Dutch, German, English and French. Accounts are approved by an admin, so the sponsor tool itself needs a login.
+      <a href="https://massimilianopre.github.io/RallyToRumble/" target="_blank" rel="noopener">Open the prototype in a new tab &#8599;</a>.</p>
   </section>
 
   <!-- EVALUATION -->
@@ -223,7 +264,7 @@
       <div class="info-row"><div><b>EU AI Act</b><small>Minimal risk: no high-impact decisions about people.</small></div><span>Minimal</span></div>
       <div class="info-row"><div><b>GDPR</b><small>Contact persons are personal data, even when public. Only public business data is used and sent to the model.</small></div><span>Applies</span></div>
       <div class="info-row"><div><b>Transparency</b><small>Score as a percentage, a "Why?" explanation and the score source shown. Always labelled as an estimate.</small></div><span>Partly</span></div>
-      <div class="info-row"><div><b>Human oversight</b><small>A draft can only be approved after confirming it was read. The owner's request for batch sending to 60 companies is only advised with per-recipient preview and limits, to avoid automation bias.</small></div><span>Core</span></div>
+      <div class="info-row"><div><b>Human oversight</b><small>Nothing is sent without the organizer. The owner asked to email around 60 companies at once, which risks automation bias. The Mailing page therefore previews the message and by default opens one ready-made message per company, so the owner presses send each time.</small></div><span>Core</span></div>
     </div>
     <div class="exp-panel">
       <h3 class="gradient-text">Feasibility and costs</h3>
@@ -315,6 +356,93 @@
       </div>
     </div>
   </footer>
+
+  <!-- IMAGE VIEWER: click any image on the page to enlarge it -->
+  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button type="button" class="lb-btn lb-close" aria-label="Close image viewer">&times;</button>
+    <button type="button" class="lb-btn lb-prev" aria-label="Previous image">&#8249;</button>
+    <button type="button" class="lb-btn lb-next" aria-label="Next image">&#8250;</button>
+    <div class="lb-stage"><img class="lb-img" alt=""></div>
+    <div class="lb-bar"><p class="lb-cap" id="lb-cap"></p><span class="lb-hint" id="lb-hint"></span></div>
+  </div>
+  <script>
+    (() => {
+      const imgs = [...document.querySelectorAll('.project-hero-media img, .media-item img')];
+      if (!imgs.length) return;
+      const lb = document.getElementById('lb');
+      const view = lb.querySelector('.lb-img');
+      const cap = document.getElementById('lb-cap');
+      const hint = document.getElementById('lb-hint');
+      const closeBtn = lb.querySelector('.lb-close');
+      let index = 0, opener = null;
+
+      lb.classList.toggle('is-single', imgs.length < 2);
+
+      imgs.forEach((img, i) => {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', 'Enlarge image: ' + (img.alt || 'image'));
+        img.addEventListener('click', () => open(i));
+        img.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+        });
+      });
+
+      function show(i) {
+        index = (i + imgs.length) % imgs.length;
+        const img = imgs[index];
+        const fig = img.closest('figure');
+        const text = fig && fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent.trim() : img.alt;
+        view.src = img.currentSrc || img.src;
+        view.alt = img.alt;
+        lb.classList.remove('is-zoomed');
+        cap.textContent = text;
+        hint.textContent = (index + 1) + ' / ' + imgs.length + '  \u00b7  click image to zoom';
+        view.parentElement.scrollTo(0, 0);
+      }
+      function open(i) {
+        opener = document.activeElement;
+        show(i);
+        lb.hidden = false;
+        document.body.classList.add('lb-open');
+        closeBtn.focus();
+      }
+      function close() {
+        lb.hidden = true;
+        document.body.classList.remove('lb-open');
+        view.removeAttribute('src');
+        if (opener && opener.focus) opener.focus();
+      }
+
+      view.addEventListener('click', () => lb.classList.toggle('is-zoomed'));
+      closeBtn.addEventListener('click', close);
+      lb.querySelector('.lb-prev').addEventListener('click', () => show(index - 1));
+      lb.querySelector('.lb-next').addEventListener('click', () => show(index + 1));
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb || e.target.classList.contains('lb-stage') || e.target.classList.contains('lb-bar')) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (lb.hidden) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') show(index - 1);
+        else if (e.key === 'ArrowRight') show(index + 1);
+        else if (e.key === 'Tab') {
+          const f = [...lb.querySelectorAll('button')].filter((b) => b.offsetParent !== null || getComputedStyle(b).position === 'fixed');
+          if (!f.length) return;
+          const first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+      let x0 = null;
+      lb.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', (e) => {
+        if (x0 === null || lb.classList.contains('is-zoomed')) { x0 = null; return; }
+        const dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 60) show(index + (dx < 0 ? 1 : -1));
+      });
+    })();
+  </script>
   <script src="js/java.js" defer></script>
 </body>
 
